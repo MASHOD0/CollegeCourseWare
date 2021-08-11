@@ -77,6 +77,21 @@ def classes():
 def schedule():
     return render_template("schedule.html")
 
+
+@app.route("/grades")
+def grades():
+    return render_template("grades.html")
+
+@app.route("/upload")
+def upload():
+    return render_template("updates.html")
+
+@app.route("/pwch")
+def pwch():
+    return render_template("pwch.html")
+
+
+
 @app.route("/logout")
 def logout():
     if session['username']:
