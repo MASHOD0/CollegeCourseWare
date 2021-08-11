@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, session
 
 app = Flask(__name__)
 
@@ -10,7 +10,12 @@ def hello():
 
 @app.route("/teacherlogin")
 def teacherlogin():
-    return render_template("teacherlogin.html")
+    if request.method == "POST":
+        name = request.form['Name']
+        password = request.form['Password']
+        return render_template(f'/teacher-{name}')
+    else:
+        return render_template("teacherlogin.html")
 
 
 @app.route("/studentlogin")
@@ -21,6 +26,23 @@ def studentlogin():
 @app.route("/signup")
 def signup():
     return render_template("signup.html")
+    
+
+@app.route("/student-<usn>")
+def home(name):
+    return render_template('student.html', content=usn)
+
+@app.route("/teacher-<name>")
+def home(name):
+    return render_template('teacher.html', content=name)
+
+@app.route("/logout")
+def logout():
+    if session['username']:
+        session.clear()
+    
+
+    return redirect("/")
 
 
 
