@@ -8,6 +8,29 @@ Teacher login
 {% endblock %}
 {% block content %}
 <h1>
-    #Todo
+    <form action="#" method='post'>
+        <table>
+            <tr>
+                <td>
+                <font size="5" color= "#000000" > USN:</font>
+                </td>
+                <td>
+                <input type="text" name="USN" placeholder="Enter Username" size="47">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <font size="5" color="#000000"> Password:</font>
+                </td>
+                <td>
+                    <input type="Password" name="Password" size="47" placeholder="Enter Password">
+                </td>
+            </tr>
+    <tr>
+        <td>
+            <input type="submit" value="submit"/>
+        </td>
+    </tr>  
+    </form>
 </h1>
 {% endblock %}
