@@ -5,11 +5,12 @@ app = Flask(__name__)
 
 app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
 
-
+# Home Page
 @app.route('/')
 def hello():
     return render_template("index.html")
 
+# logins and signups
 
 @app.route("/teacherlogin", methods=['GET', 'POST'])
 def teacherlogin():
@@ -48,7 +49,16 @@ def signup():
 
 @app.route("/TSignup")
 def tsignup():
-    return "contact admin"
+    if request.method == "POST":
+        name = request.form['name']
+        password = request.form['Password']
+        c_password = request.form["Confirm Password"]
+        if password != c_password:
+            return render_template("TSignup.html")
+        else:
+            return redirect("/teacherlogin")
+    else:
+        return render_template("TSignup.html")
 
 
 @app.route("/student-<usn>")
