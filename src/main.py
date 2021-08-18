@@ -61,11 +61,11 @@ def tsignup():
         return render_template("TSignup.html")
 
 
-@app.route("/student-<usn>")
+@app.route("/student")
 def student(usn):
     return render_template('student.html', name=usn)
 
-@app.route("/teacher-<name>")
+@app.route("/teacher")
 def teacher(name):
     return render_template('teacher.html', name=name)
 
@@ -86,9 +86,27 @@ def grades():
 def upload():
     return render_template("updates.html")
 
-@app.route("/pwch")
+@app.route("/pwch<string>")
 def pwch():
     return render_template("pwch.html")
+
+@app.route("/controlpanel", methods=["GET", "POST"])
+def controlpanel():
+    if method == "POST":
+        password = request.form['password']
+        if password == "admin":
+            return render_template("control.html")
+        else:
+            return render_template("admin_auth.html")
+    else:
+        return render_template("admin_auth.html")
+
+@app.route("/create_sections")
+def sections():
+    return render_template("create_sections.html")
+@app.route("/create_courses")
+def courses():
+    return render_template("create_courses.html")
 
 
 
