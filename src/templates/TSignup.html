@@ -8,20 +8,52 @@ Signup
 {% endblock %}
 {% block content %}
 <h1>
-    #Todo
+    Teacher Signup
 </h1>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-
 <form action="#" method = 'POST'>    
     <table>
         <tr>
             <td>
-            <font size="5" color= "#000000" > USN:</font>
+            <font size="5" color= "#000000" > Name:</font>
             </td>
             <td>
-            <input type="text" name="name" placeholder="Enter USN" size="47">
+            <input type="text" name="Name" placeholder="John Doe" size="47">
             </td>
+        </tr>
+        <tr>
+            <td>
+            <font size="5" color= "#000000" > Email:</font>
+            </td>
+            <td>
+            <input type="email" name="section" size="47">
+            </td>
+        </tr>
+        <tr>
+            <td class = "select">
+                <font size="5" color= "#000000" >Department:</font>
+            </td>
+            <TD >
+                <select>        
+                     <option value="AE">Areonautical Engineering</option>
+                     <option value="AI">Artifical intelligence and Machine learning</option>
+                     <option value="AU">Automobile Engineering</option>
+                     <option value="BT">Bio-Technology</option>
+                     <option value="CH">Chemical Engineering</option>
+                     <option value="CS">Computer Science and Engineering</option>
+                     <option value="CV">Civil Engineering</option>
+                     <option value="EC">Electronics & Communication Engineering</option>
+                     <option value="EE">Electrical & Electronics Engineering</option>
+                     <option value="ET">Electronics and Telecomunication Engineering</option>
+                     <option value="IM">Industrial Engineering and Management</option>
+                     <option value="IS">Information Science & Engineering</option>
+                     <option value="MD">Electronics and Medical Engineering</option>
+                     <option value="ME">Mechanical Engineering</option>
+                     <option value="PY">Physics </option>
+                    <option value="CE">Chemistry</option>
+                </select>
+             </TD> 
+
         </tr>
         <tr>
             <td>
