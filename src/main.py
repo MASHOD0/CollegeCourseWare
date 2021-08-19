@@ -10,14 +10,14 @@ app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
 def hello():
     return render_template("index.html")
 
-# logins and signups
+# logins
 
 @app.route("/teacherlogin", methods=['GET', 'POST'])
 def teacherlogin():
     if request.method == "POST":
         name = request.form['Name']
         password = request.form['Password']
-        return redirect(f'/teacher-{name}')
+        return redirect(f'/teacher')
     else:
         return render_template("teacherlogin.html")
 
@@ -27,11 +27,11 @@ def studentlogin():
     if request.method == "POST":
         usn = request.form['USN']
         password = request.form['Password']
-        return redirect(f'/student-{usn}')
+        return redirect('/student')
     else:
         return render_template("studentlogin.html")
 
-
+# singup
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
     if request.method == "POST":
@@ -92,7 +92,7 @@ def pwch():
 
 @app.route("/controlpanel", methods=["GET", "POST"])
 def controlpanel():
-    if method == "POST":
+    if request.method == "POST":
         password = request.form['password']
         if password == "admin":
             return render_template("control.html")
