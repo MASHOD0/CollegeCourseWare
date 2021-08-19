@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session
 from werkzeug.utils import redirect
-from DB import db
+from DB import db, query as q
 
 
 app = Flask(__name__)
@@ -45,10 +45,13 @@ def signup():
         section = request.form['Section']
         branch = request.form['Branch']
         c_password = request.form['Confirm Password']
+        section_id = db.fetch(conn, q.get_section_id.format(section))
+        sectionId = int(section_id[0][0])
         
 
         c_password = request.form["Confirm Password"]
         if password != c_password:
+        
             return render_template("signup.html")
         else:
             return redirect("/studentlogin")
