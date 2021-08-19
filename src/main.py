@@ -62,12 +62,12 @@ def tsignup():
 
 
 @app.route("/student")
-def student(usn):
-    return render_template('student.html', name=usn)
+def student():
+    return render_template('student.html')
 
 @app.route("/teacher")
-def teacher(name):
-    return render_template('teacher.html', name=name)
+def teacher():
+    return render_template('teacher.html')
 
 @app.route("/classes")
 def classes():
