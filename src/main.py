@@ -1,10 +1,13 @@
 from flask import Flask, render_template, request, session
 from werkzeug.utils import redirect
+from DB import db
+
 
 app = Flask(__name__)
 
 app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
 
+conn = db.fypDB_Connect()
 # Home Page
 @app.route('/')
 def hello():
@@ -122,3 +125,4 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug = True)
+    db.close(conn)
