@@ -11,32 +11,6 @@ Signup
     #Todo
 </h1>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<script type = "text/javascript">
-    function submitForm(){
-        document.getElementById("switch").submit();
-        alert("toggle is on")
-    }
-    if(toggle =toggleon){
-        alert("toggle is on")
-    }
-</script>
-<form action="/TSignup" method= "GET" id = "switch">
-<table>
-    <tr>
-        <td>
-            Are you a Teacher ?
-        </td>
-        <td><div onclick="submitForm()">
-                <label class="switch">
-                    <input type="checkbox" name ="toggle">
-                    <span class="round slider"></span>
-                </label>
-            </div>
-        </td>
-    </tr>
-</table>
-
-</form>
 <form action="#" method = 'POST'>    
     <table>
         <tr>
@@ -54,6 +28,20 @@ Signup
             <td>
             <input type="char" name="section" size="47">
             </td>
+        </tr>
+        <tr>
+            <td class = "select">
+                section
+            </td>
+            <TD ALIGN="center">
+                <select>        
+                     <option value="volvo">A</option>
+                     <option value="saab">B</option>
+                     <option value="mercedes">C</option>
+                     <option value="audi">D</option>
+                </select>
+             </TD> 
+
         </tr>
         <tr>
             <td>
