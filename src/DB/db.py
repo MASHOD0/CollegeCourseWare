@@ -1,9 +1,9 @@
 from psycopg2 import connect
 
-def projectMotaDB_Connect():
+def fypDB_Connect():
     try:
         conn = connect(
-            database="projectMota", 
+            database="fyp-ver1", 
             user = "postgres", 
             password = "postgres", 
             host = "127.0.0.1", 
