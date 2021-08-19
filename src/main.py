@@ -39,8 +39,14 @@ def studentlogin():
 def signup():
     if request.method == "POST":
         usn = request.form['USN']
-        section = request.form['section']
         password = request.form['Password']
+        name = request.form['Name']
+        email = request.form['Email']
+        section = request.form['Section']
+        branch = request.form['Branch']
+        c_password = request.form['Confirm Password']
+        
+
         c_password = request.form["Confirm Password"]
         if password != c_password:
             return render_template("signup.html")
