@@ -20,6 +20,7 @@ def teacherlogin():
     if request.method == "POST":
         name = request.form['Name']
         password = request.form['Password']
+        
         return redirect(f'/teacher')
     else:
         return render_template("teacherlogin.html")
@@ -30,11 +31,20 @@ def studentlogin():
     if request.method == "POST":
         usn = request.form['USN']
         password = request.form['Password']
-        return redirect('/student')
+        print(usn)
+        print(password)
+        fetch_password = db.fetch(conn, q.get_student_pw.format(usn))
+        print(fetch_password)
+        
+        if fetch_password == password:
+            print("login successful!!!")
+            return redirect('/student')
+        else:
+            return render_template('studentlogin.html')
     else:
         return render_template("studentlogin.html")
 
-# singup
+# signup
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
     if request.method == "POST":
