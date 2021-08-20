@@ -21,7 +21,7 @@ def teacherlogin():
         name = request.form['Name']
         password = request.form['Password']
         
-        return redirect(f'/teacher')
+        return redirect('/teacher')
     else:
         return render_template("teacherlogin.html")
 
@@ -31,12 +31,10 @@ def studentlogin():
     if request.method == "POST":
         usn = request.form['USN']
         password = request.form['Password']
-        print(usn)
-        print(password)
+    
         fetch_password = db.fetch(conn, q.get_student_pw.format(usn))
-        print(fetch_password)
         
-        if fetch_password == password:
+        if fetch_password[0][0] == password:
             print("login successful!!!")
             return redirect('/student')
         else:
