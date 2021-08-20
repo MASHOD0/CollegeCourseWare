@@ -46,29 +46,31 @@ def signup():
         branch = request.form['Branch']
         c_password = request.form['Confirm Password']
         section_id = db.fetch(conn, q.get_section_id.format(section))
-        sectionId = int(section_id[0][0])
-        
+        sectionId = section_id[0][0]
 
-        c_password = request.form["Confirm Password"]
-        if password != c_password:
-        
-            return render_template("signup.html")
-        else:
+        if password == c_password:
+            db.execute(conn,q.add_new_student.format(sectionId, usn, name, password, email, branch))
             return redirect("/studentlogin")
+        else:
+            return redirect("/signup")
     else:
         return render_template("signup.html")
 
 
-@app.route("/TSignup")
+@app.route("/TSignup", methods=["POST", "GET"])
 def tsignup():
     if request.method == "POST":
-        name = request.form['name']
+        name = request.form['Name']
+        email = request.form['Email']
+        department = request.form['Department']
         password = request.form['Password']
-        c_password = request.form["Confirm Password"]
-        if password != c_password:
-            return render_template("TSignup.html")
-        else:
+        c_password = request.form['Confirm Password']
+
+        if password == c_password:
+            db.execute(conn,q.add_new_teacher.format(name, password, email, department))
             return redirect("/teacherlogin")
+        else:
+            return redirect("/TSignup")
     else:
         return render_template("TSignup.html")
 
