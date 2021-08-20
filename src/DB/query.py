@@ -8,6 +8,13 @@ get_student_pw="""select distinct password
                 where "USN" = '{}' 
                 limit  1;
                 """
+get_teacher_pw="""
+                select distinct password
+                from teachers
+                where name = '{}' 
+                limit  1;
+                """
+                
 add_new_student = """
                 INSERT INTO student(student_id, section_id, "USN", "Name", password, email, branch)
                 VALUES (DEFAULT, {}, '{}', '{}', '{}', '{}', '{}');
