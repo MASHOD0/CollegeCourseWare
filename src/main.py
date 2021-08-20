@@ -21,7 +21,11 @@ def teacherlogin():
         name = request.form['Name']
         password = request.form['Password']
         
-        return redirect('/teacher')
+        fetch_password = db.fetch(conn, q.get_teacher_pw.format(name))
+
+        if fetch_password[0][0] == password:
+            print("login successful!!!!")
+            return redirect('/teacher')
     else:
         return render_template("teacherlogin.html")
 
