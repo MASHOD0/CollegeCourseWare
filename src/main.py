@@ -1,11 +1,14 @@
 from flask import Flask, render_template, request, session
 from werkzeug.utils import redirect
+from datetime import date
+#from flask_sessions import Sessions
+import hashlib
 from DB import db, query as q
 
 
 app = Flask(__name__)
 
-app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = 'Lydoydodpdo6do6dpd_5#y2L"F4Q8z\n\xec]/'
 
 conn = db.fypDB_Connect()
 # Home Page
@@ -20,10 +23,11 @@ def teacherlogin():
     if request.method == "POST":
         name = request.form['Name']
         password = request.form['Password']
+        dk = hashlib.pbkdf2_hmac('sha256', bytes(password, 'utf-8'), b'salt', 100000)
         
         fetch_password = db.fetch(conn, q.get_teacher_pw.format(name))
 
-        if fetch_password[0][0] == password:
+        if fetch_password[0][0] == dk.hex():
             print("login successful!!!!")
             return redirect('/teacher')
     else:
@@ -35,10 +39,11 @@ def studentlogin():
     if request.method == "POST":
         usn = request.form['USN']
         password = request.form['Password']
+        dk = hashlib.pbkdf2_hmac('sha256', bytes(password, 'utf-8'), b'salt', 100000)
     
         fetch_password = db.fetch(conn, q.get_student_pw.format(usn))
         
-        if fetch_password[0][0] == password:
+        if fetch_password[0][0] == dk.hex():
             print("login successful!!!")
             return redirect('/student')
         else:
@@ -57,11 +62,13 @@ def signup():
         section = request.form['Section']
         branch = request.form['Branch']
         c_password = request.form['Confirm Password']
+
+        dk = hashlib.pbkdf2_hmac('sha256', bytes(password, 'utf-8'), b'salt', 100000)
         section_id = db.fetch(conn, q.get_section_id.format(section))
         sectionId = section_id[0][0]
 
         if password == c_password:
-            db.execute(conn,q.add_new_student.format(sectionId, usn, name, password, email, branch))
+            db.execute(conn,q.add_new_student.format(sectionId, usn, name, dk.hex(), email, branch))
             return redirect("/studentlogin")
         else:
             return redirect("/signup")
@@ -77,9 +84,10 @@ def tsignup():
         department = request.form['Department']
         password = request.form['Password']
         c_password = request.form['Confirm Password']
+        dk = hashlib.pbkdf2_hmac('sha256', bytes(password, 'utf-8'), b'salt', 100000)
 
         if password == c_password:
-            db.execute(conn,q.add_new_teacher.format(name, password, email, department))
+            db.execute(conn,q.add_new_teacher.format(name, dk.hex(), email, department))
             return redirect("/teacherlogin")
         else:
             return redirect("/TSignup")
@@ -140,8 +148,6 @@ def courses():
 def logout():
     if session['username']:
         session.clear()
-    
-
     return redirect("/")
 
 
