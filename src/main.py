@@ -4,6 +4,7 @@ from datetime import date
 #from flask_sessions import Sessions
 import hashlib
 from DB import db, query as q
+import datetime
 
 
 app = Flask(__name__)
@@ -45,6 +46,7 @@ def studentlogin():
         
         if fetch_password[0][0] == dk.hex():
             print("login successful!!!")
+            session['username'] = usn
             return redirect('/student')
         else:
             return render_template('studentlogin.html')
@@ -97,24 +99,39 @@ def tsignup():
 
 @app.route("/student")
 def student():
-    return render_template('student.html')
+    if session['username']:
+        now = datetime.datetime.now()
+        day = now.strftime("%A")
+        print(day)
+        answer = db.fetch(conn, q.get_classes.format(session['username'], day))
+        return render_template('student.html', classes=answer)
+    else:
+        redirect('/studentlogin')
 
 @app.route("/teacher")
 def teacher():
     return render_template('teacher.html')
 
-@app.route("/classes")
-def classes():
-    return render_template("class.html")
 
-@app.route("/schedule")
+@app.route("/schedule", methods=["POST", "GET"])
 def schedule():
-    return render_template("schedule.html")
+    if method == "POST":
+        section = request.form['section']
+        course = request.form['course']
+        link = request.form['link']
+        day = request.form['day']
+        time = request.form['time']
+
+        return redirect('/teacher')
+    else:
+        return render_template("schedule.html")
 
 
 @app.route("/grades")
 def grades():
     return render_template("grades.html")
+
+
 
 @app.route("/upload")
 def upload():
