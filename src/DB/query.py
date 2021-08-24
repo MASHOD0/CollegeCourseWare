@@ -23,7 +23,7 @@ add_new_teacher = """
                 INSERT INTO teachers (teacher_id, name, password, email, department) 
                 VALUES (DEFAULT, '{}', '{}', '{}', '{}');
                  """
-get_class_stud = """
+get_classes = """
                 select class_id,classes.course_id, "link", "time", courses.course_code, department
                 from classes
                 join courses
