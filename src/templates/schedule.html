@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}
+Schedule Classes
+{% endblock %}
+{% block content %}
+<form>
+    <table>
+        <tr>
+            <td>
+                Section:
+            </td>
+            <td>
+                <select name = 'section'>        
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                    <option value="I">I</option>
+                    <option value="J">J</option>
+                    <option value="K">K</option>
+                    <option value="L">L</option>
+                    <option value="M">M</option>
+                    <option value="N">N</option>
+                    <option value="O">O</option>
+                    <option value="P">P</option>
+                    <option value="Q">Q</option>
+                    <option value="R">R</option>
+                    <option value="S">S</option>
+                    <option value="T">T</option>
+                    <option value="U">U</option>
+                    <option value="V">V</option>
+               </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Course:
+            </td>
+            <td>
+                <select name = 'course'>
+                    {% for i in range(len(course))%}
+                    
+                    <option value={{course[i]}}>{{course[i]}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Link:
+            </td>
+            <td>
+                <input type="url" name="link" size="47" placeholder="Enter URL">
+            </td>
+        </tr>
+        <tr>
+            <td>
+            Day:
+            </td>
+            <td>
+                <select name = 'day'>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                </select>
+            </td>
+        </tr>
+        <td>
+            Time:
+        </td>
+        <td>
+            <input type="time" name="time" min="09:00" max="18:00" required>
+        </td>
+    </table>
+</form>
+{% endblock %}
