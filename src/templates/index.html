@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Index{% endblock %}
+{% block title %}Dayananda Sagar Institutions{% endblock %}
 {% block head %}
   {{ super() }}
   <style type="text/css">
@@ -7,17 +7,27 @@
   </style>
 {% endblock %}
 {% block content %}
-  <h1>Index</h1>
-  <p class="important">
+  <h1>Welcome to DSCE !!</h1>
+  
+    <table name = "important" style = "border:1px solid black" center = "True">
+    <tr>
+      <td style = "text-align:center;padding:2px;border-spacing: 20px;">
+        <form action="/teacherlogin" class="inline">
+          <button class="float-left submit-button" n><font size = "10" >Teacher login</font></button>
+        </form>
+      </td>
+      
+    </tr>
+    <tr>
+      <td style = "text-align:center">
+        <form action="/studentlogin" class="inline">
+          <button class="float-left submit-button" ><font size = "10">Student login</font></button>
+        </form>
+      </td>
+    </tr>
+    </table>
+   
     
-    <form action="/teacherlogin" class="inline">
-        <button class="float-left submit-button" >Teacher login</button>
-    </form>
-    <form action="/studentlogin" class="inline">
-        <button class="float-left submit-button" >Student login</button>
-    </form>
-    <form action="/signup" class="inline">
-        <button class="float-left submit-button" >Sign up</button>
-    </form>
+  </p>  
           
 {% endblock %}
