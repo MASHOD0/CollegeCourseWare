@@ -102,7 +102,7 @@ def student():
     if session['username']:
         now = datetime.datetime.now()
         day = now.strftime("%A")
-        print(day)
+        #print(day)
         answer = db.fetch(conn, q.get_classes.format(session['username'], day))
         return render_template('student.html', classes=answer)
     else:
@@ -115,12 +115,19 @@ def teacher():
 
 @app.route("/schedule", methods=["POST", "GET"])
 def schedule():
-    if method == "POST":
+    if request.method == "POST":
         section = request.form['section']
         course = request.form['course']
         link = request.form['link']
         day = request.form['day']
         time = request.form['time']
+        section_id = db.fetch(conn, q.get_section_id.format(section))
+        sectionId = section_id[0][0]
+
+        course_id = db.fetch(conn, q.get_courseId.format(course))
+        print(course_id)
+        courseId = "str"
+        db.execute(conn, q.add_class.format(section_id[0][0], course_id[0][0], link, day, time))
 
         return redirect('/teacher')
     else:
