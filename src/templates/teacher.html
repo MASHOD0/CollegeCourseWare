@@ -3,7 +3,14 @@
 {% block head %}
 {% endblock %}
 {% block content %}
-{{classes}}
+<h1>
+Upcoming Classes
+</h1>
+<p>{{classes}}</p>
+
+<form action="/schedule" class="inline">
+  <button class="float-left submit-button" >Scedule Classes</button>
+</form>
 <form action="/logout" class="inline">
   <button class="float-left submit-button" >logout</button>
 </form>
