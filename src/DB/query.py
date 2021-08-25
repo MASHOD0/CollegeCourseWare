@@ -33,8 +33,8 @@ get_classes = """
                 """
 add_class = """
             INSERT INTO classes(
-	        section_id, course_id, link, day, "time", class_id)
-	        VALUES ({}, {}, '{}','{}', '{}:00', default);
+	        section_id, course_id, link, day, "time", class_id, teacher_id)
+	        VALUES ({}, {}, '{}','{}', '{}:00', default, {});
             """
 get_courseId="""
             SELECT course_id 
@@ -42,3 +42,6 @@ get_courseId="""
 	        where course_code = '{}'
             LIMIT 1;
             """
+get_teacher_id = """
+                SELECT teacher_id FROM  teachers WHERE name = 'Ananth Raju' limit 1;
+                """
