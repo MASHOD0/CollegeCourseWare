@@ -31,3 +31,14 @@ get_classes = """
                 where section_id = (select section_id from student where "USN" = '{}' limit 1)
                 AND day = '{}';
                 """
+add_class = """
+            INSERT INTO classes(
+	        section_id, course_id, link, day, "time", class_id)
+	        VALUES ({}, {}, '{}','{}', '{}:00', default);
+            """
+get_courseId="""
+            SELECT course_id 
+	        FROM public.courses
+	        where course_code = '{}'
+            LIMIT 1;
+            """
