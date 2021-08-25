@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Index{% endblock %}
+{% block title %} Welcome, {{name}} {% endblock %}
 {% block head %}
   {{ super() }}
   <style type="text/css">
@@ -8,11 +8,9 @@
 {% endblock %}
 {% block content %}
   <h1>{{classes}}</h1>
-  <p class="important">
-    Welcome on my awesome homepage.
-  </p>
-  
 
-    Welcome, {{name}} 
+  <form action="/signup" class="inline">
+      <button class="float-left submit-button" >Sign up</button>
+  </form>
           
-{% endblock %
+{% endblock %}
