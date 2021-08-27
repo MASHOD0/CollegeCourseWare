@@ -31,6 +31,14 @@ get_classes = """
                 where section_id = (select section_id from student where "USN" = '{}' limit 1)
                 AND day = '{}';
                 """
+get_teacher_cls = """
+                SELECT courses.course_code, section_id, classes.course_id, link, day, "time", class_id, classes.teacher_id
+                From classes
+                inner join courses on classes.course_id = courses.course_id
+                inner join teachers on classes.teacher_id = teachers.teacher_id
+                where teachers.name = '{}'
+                AND "day" = '{}';
+                """
 add_class = """
             INSERT INTO classes(
 	        section_id, course_id, link, day, "time", class_id, teacher_id)
