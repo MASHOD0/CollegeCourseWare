@@ -55,4 +55,3 @@ def close(conn):
         print('connection closed')
     except Exception as e:
         print(e)
-    
