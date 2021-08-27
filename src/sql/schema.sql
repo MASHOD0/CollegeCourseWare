@@ -68,4 +68,4 @@ ALTER TABLE "Attendance" ADD FOREIGN KEY ("course_id") REFERENCES "courses" ("co
 
 ALTER TABLE "student" ADD FOREIGN KEY ("section_id") REFERENCES "sections" ("section_id");
 
-ALTER TABLE "teachers" ADD FOREIGN KEY ("department") REFERENCES "courses" ("department");
+--ALTER TABLE "teachers" ADD FOREIGN KEY ("department") REFERENCES "courses" ("department");
