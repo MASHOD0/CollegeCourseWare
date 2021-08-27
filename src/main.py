@@ -21,18 +21,24 @@ def hello():
 
 @app.route("/teacherlogin", methods=['GET', 'POST'])
 def teacherlogin():
-    if request.method == "POST":
-        name = request.form['Name']
-        password = request.form['Password']
-        dk = hashlib.pbkdf2_hmac('sha256', bytes(password, 'utf-8'), b'salt', 100000)
-        
-        fetch_password = db.fetch(conn, q.get_teacher_pw.format(name))
+    try:
+        if request.method == "POST":
+            name = request.form['Name']
+            password = request.form['Password']
+            dk = hashlib.pbkdf2_hmac('sha256', bytes(password, 'utf-8'), b'salt', 100000)
+            
+            fetch_password = db.fetch(conn, q.get_teacher_pw.format(name))
 
-        if fetch_password[0][0] == dk.hex():
-            print("login successful!!!!")
-            return redirect('/teacher')
-    else:
-        return render_template("teacherlogin.html")
+            if fetch_password[0][0] == dk.hex():
+                print("login successful!!!!")
+                session['username']= name
+        
+                return redirect('/teacher')
+        else:
+            return render_template("teacherlogin.html")
+    except:
+        return redirect('/teacherlogin')
+
 
 
 @app.route("/studentlogin", methods=['GET', 'POST'])
@@ -103,35 +109,48 @@ def student():
         now = datetime.datetime.now()
         day = now.strftime("%A")
         #print(day)
-        answer = db.fetch(conn, q.get_classes.format(session['username'], day))
-        return render_template('student.html', classes=answer)
+        classes = db.fetch(conn, q.get_classes.format(session['username'], day))
+        return render_template('student.html', classes=classes)
     else:
-        redirect('/studentlogin')
+        return redirect('/studentlogin')
 
+
+# teacher homepage
 @app.route("/teacher")
 def teacher():
-    return render_template('teacher.html')
+    if session['username']:
+        now = datetime.datetime.now()
+        day = now.strftime("%A")
+        classes = db.fetch(conn, q.get_teacher_cls.format(session['username'], day))
+        return render_template('teacher.html',classes = classes, name=session['username'] )
+    else:
+        return redirect('/teacherlogin')
 
 
 @app.route("/schedule", methods=["POST", "GET"])
 def schedule():
-    if request.method == "POST":
-        section = request.form['section']
-        course = request.form['course']
-        link = request.form['link']
-        day = request.form['day']
-        time = request.form['time']
-        section_id = db.fetch(conn, q.get_section_id.format(section))
-        sectionId = section_id[0][0]
-
-        course_id = db.fetch(conn, q.get_courseId.format(course))
-        print(course_id)
-        courseId = "str"
-        db.execute(conn, q.add_class.format(section_id[0][0], course_id[0][0], link, day, time))
-
-        return redirect('/teacher')
+    if session['username']:
+        if request.method == "POST":
+            if session['username']:
+                section = request.form['section']
+                course = request.form['course']
+                link = request.form['link']
+                day = request.form['day']
+                time = request.form['time']
+                section_id = db.fetch(conn, q.get_section_id.format(section))
+                teacher_id = db.fetch(conn, q.get_teacher_id.format(session['username']))
+                course_id = db.fetch(conn, q.get_courseId.format(course))
+                getcourses = db.fetch(conn, q.)
+                
+                db.execute(conn, q.add_class.format(section_id[0][0], course_id[0][0], link, day, time, teacher_id[0][0]))
+                
+                return redirect('/teacher')
+            else:
+                return redirect('/teacherlogin')
+        else:
+            return render_template("schedule.html")
     else:
-        return render_template("schedule.html")
+        return redirect('/teacherlogin')
 
 
 @app.route("/grades")
@@ -159,9 +178,15 @@ def controlpanel():
     else:
         return render_template("admin_auth.html")
 
+
+
+
 @app.route("/create_sections")
 def sections():
     return render_template("create_sections.html")
+
+
+
 @app.route("/create_courses")
 def courses():
     return render_template("create_courses.html")
