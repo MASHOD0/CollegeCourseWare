@@ -2,9 +2,11 @@ import query as q
 import db
 
 conn = db.fypDB_Connect()
-answer = db.fetch(conn, q.get_classes.format('1DS20CS121', 'Sunday'))
+answer = db.fetch(conn, """select course_code from courses;""")
+lst = []
+for i in range(len(answer)): lst.append(answer[i][0])
 
-for i in range(len(answer)):
-    print(answer[0][i])
-
+# lst = list(map(lambda i : answer[i][0], answer))
+print(lst)
 db.close(conn)
+
