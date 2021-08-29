@@ -58,3 +58,4 @@ get_all_courses = """
                     select course_code
                     from courses;
                 """
+get_student_list = """SELECT student_id, section_id, "USN" FROM public.student;"""
