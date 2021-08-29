@@ -40,7 +40,7 @@ def teacherlogin():
         return redirect('/teacherlogin')
 
 
-
+# student login
 @app.route("/studentlogin", methods=['GET', 'POST'])
 def studentlogin():
     if request.method == "POST":
@@ -102,7 +102,7 @@ def tsignup():
     else:
         return render_template("TSignup.html")
 
-
+# student homepage
 @app.route("/student")
 def student():
     if session['username']:
@@ -110,7 +110,7 @@ def student():
         day = now.strftime("%A")
         #print(day)
         classes = db.fetch(conn, q.get_classes.format(session['username'], day))
-        return render_template('student.html', classes=classes)
+        return render_template('student.html', classes=classes, class_len= len(classes))
     else:
         return redirect('/studentlogin')
 
@@ -122,7 +122,7 @@ def teacher():
         now = datetime.datetime.now()
         day = now.strftime("%A")
         classes = db.fetch(conn, q.get_teacher_cls.format(session['username'], day))
-        return render_template('teacher.html',classes = classes, name=session['username'] )
+        return render_template('teacher.html',classes = classes, name=session['username'], class_len = len(classes) )
     else:
         return redirect('/teacherlogin')
 
@@ -161,7 +161,14 @@ def schedule():
 
 @app.route("/grades")
 def grades():
-    return render_template("grades.html")
+    if session['username']:
+        if request.method == "POST":
+            #TODO
+            return redirect('/teacher')
+        else:
+            return render_template("grades.html")
+    else:
+        return redirect('/teacherlogin')
 
 
 
