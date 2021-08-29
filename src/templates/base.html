@@ -1,29 +1,32 @@
-<!doctype html>
-<html>
-  <head>
-    {% block head %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block head %}
     <title>{% block title %}{% endblock %} - DSCE </title>
-    {% endblock %}
-  </head>
-  <body>
-    <center>
-      <div id="content">{% block content %}{% endblock %}</div>
-    </center>
-    <style>
-      #footer {
-          position: fixed;
-          padding: 10px 10px 0px 10px;
-          bottom: 0;
-          width: 100%;
-          /* Height of the footer*/ 
-          height: 40px;
-          background: grey;
-      }
+  {% endblock %}
+</head>
+<body>
+  <center>
+    <div id="content">{% block content %}{% endblock %}</div>
+  </center>
+  <style>
+    #footer {
+        position: fixed;
+        padding: 10px 10px 0px 10px;
+        bottom: 0;
+        width: 100%;
+        /* Height of the footer*/ 
+        height: 40px;
+        background: grey;
+    }
   </style>
-    <div id="footer">
-      {% block footer %}
-      &copy; Copyright 2022 by <a href="http://mashhoodalam.webs.com">Mashhood</a>.
-      {% endblock %}
-    </div>
-  </body>
+  <div id="footer">
+    {% block footer %}
+    &copy; Copyright 2022 by <a href="http://mashhoodalam.webs.com">Mashhood</a>.
+    {% endblock %}
+  </div>
+</body>
 </html>
