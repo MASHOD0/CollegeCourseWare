@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session
 from werkzeug.utils import redirect
-from datetime import date
+#from datetime import date
 #from flask_sessions import Sessions
 import hashlib
 from DB import db, query as q
@@ -161,9 +161,16 @@ def schedule():
 
 @app.route("/grades")
 def grades():
+    #get students_list
+    stud_tuple = db.fetch(conn, q.get_student_list)
+    usn_list = []
+    for i in range(len(stud_tuple)): usn_list.append(stud_tuple[i][2])
+    #student_id = stud_tuple[5][0]
     if session['username']:
         if request.method == "POST":
-            #TODO
+            i = request.form['student_id']
+            exam = request.form['exam']
+            grades = int(request.form['grades'])
             return redirect('/teacher')
         else:
             return render_template("grades.html")
