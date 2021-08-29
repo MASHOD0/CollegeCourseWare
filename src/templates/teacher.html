@@ -6,7 +6,44 @@
 <h1>
 Upcoming Classes
 </h1>
-<p>{{classes}}</p>
+<table name = "Classes" style = "border:1px solid black" center = "True">
+  <tr>
+    <th>
+      Sr.No
+    </th>
+    <th>
+      Sections
+    </th>
+    <th>
+      Course Code
+    </th>
+    <th>
+      Link
+    </th>
+    <th>
+      Time
+    </th>
+  </tr>
+  {% for i in range(class_len) %}
+  <tr>
+    <td>
+      {{ i+1 }}
+    </td>
+    <td>
+      {{ classes[i][0] }}
+    </td>
+    <td>
+      {{ classes[i][1] }}
+    </td>
+    <td>
+      <a href="{{ classes[i][2] }}">Link</a>
+    </td>
+    <td>
+      {{ classes[i][3].strftime("%H:%M") }}
+    </td>
+  </tr>
+  {% endfor %}
+  </table>
 
 
 <form action="/schedule" class="inline">
