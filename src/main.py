@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session
 from werkzeug.utils import redirect
-#from datetime import date
-#from flask_sessions import Sessions
+# from datetime import date
+# from flask_sessions import Sessions
 import hashlib
 from DB import db, query as q
 import datetime
@@ -205,7 +205,7 @@ def test():
     getcourses = db.fetch(conn, q.get_all_courses)
     courses = []
     for i in range(len(getcourses)): courses.append(getcourses[i][0])
-    # print(courses)
+    getstudents = db.fetch(conn, q.get_student_list)
 
     if request.method == "POST":
         n = int(request.form['list'])
