@@ -58,4 +58,7 @@ get_all_courses = """
                     select course_code
                     from courses;
                 """
-get_student_list = """SELECT student_id, section_id, "USN" FROM public.student;"""
+get_student_list = """SELECT grades.student_id, semester, course_id, student."USN" 
+                        FROM grades
+                        inner join student on  grades.student_id = student.student_id;
+                    """
