@@ -1,4 +1,60 @@
 {% extends "base.html" %}
 {% block title %}{% endblock %}
 {% block head %}{% endblock %}
-{%block content%}{% endblock %}
+{%block content%}
+
+<form action = "#" method = "POST">
+    <table name = grades method= "POST">
+        <tr>
+            <td>
+                Select USN:
+            </td>
+            <td>
+                <select name = "student_id">
+                    {% for i in range(usn_len) %}
+                        <option value = "{{i}}">{{ usn_list[i] }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Select Sem:
+            </td>
+            <td>
+                <select name = 'sem'>
+                    <option value = '1'>1st</option>
+                    <option value = '2'>2nd</option>
+                    <option value = '3'>3rd</option>
+                    <option value = '4'>4th</option>
+                    <option value = '5'>5th</option>
+                    <option value =' 6'>6th</option>
+                    <option value = '7'>7th</option>
+                    <option value = '8'>8th</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Select course:
+            </td>
+            <td>
+                <select name = 'course'>
+                    {% for i in range(course_len) %}
+                        <option value = "{{i}}">{{ course[i] }}</option>
+                    {& endfor &}
+                </select>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="submit"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+
+{% endblock %}
