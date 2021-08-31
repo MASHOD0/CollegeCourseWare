@@ -159,7 +159,7 @@ def schedule():
         return redirect('/teacherlogin')
 
 
-@app.route("/grades")
+@app.route("/grades", methods=['GET', 'POST'])
 def grades():
     #get students_list
     stud_tuple = db.fetch(conn, q.get_student_list)
@@ -170,8 +170,13 @@ def grades():
     if session['username']:
         if request.method == "POST":
             i = request.form['student_id']
+            usn = usn_list[int(i)]
             exam = request.form['exam']
             grades = int(request.form['grades'])
+            print(i)
+            print(exam)
+            print(grades)
+            db.execute(conn, q.update_grades.format(exam, grades, usn))
             return redirect('/teacher')
         else:
             return render_template("grades.html", usn_list = usn_list, usn_len = len(usn_list))
