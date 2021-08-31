@@ -83,7 +83,7 @@ def signup():
     else:
         return render_template("signup.html")
 
-
+#teacher signup
 @app.route("/TSignup", methods=["POST", "GET"])
 def tsignup():
     if request.method == "POST":
@@ -164,8 +164,9 @@ def grades():
     #get students_list
     stud_tuple = db.fetch(conn, q.get_student_list)
     usn_list = []
-    for i in range(len(stud_tuple)): usn_list.append(stud_tuple[i][2])
+    for i in range(len(stud_tuple)): usn_list.append(stud_tuple[i][3])
     #student_id = stud_tuple[5][0]
+    print(usn_list)
     if session['username']:
         if request.method == "POST":
             i = request.form['student_id']
@@ -173,7 +174,7 @@ def grades():
             grades = int(request.form['grades'])
             return redirect('/teacher')
         else:
-            return render_template("grades.html")
+            return render_template("grades.html", usn_list = usn_list, usn_len = len(usn_list))
     else:
         return redirect('/teacherlogin')
 
