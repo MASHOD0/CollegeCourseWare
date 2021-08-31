@@ -5,13 +5,16 @@ from werkzeug.utils import redirect
 import hashlib
 from DB import db, query as q
 import datetime
+from flask_wtf import FlaskForm, RecaptchaField
+from wtforms import SelectField, TextField
 
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'dodpdo6do6dpd_5#y2L"F'
 app.secret_key = 'Lydoydodpdo6do6dpd_5#y2L"F4Q8z\n\xec]/'
 
 conn = db.fypDB_Connect()
+
 # Home Page
 @app.route('/')
 def hello():
@@ -132,7 +135,8 @@ def schedule():
     # getting `courses` list 
     getcourses = db.fetch(conn, q.get_all_courses)
     courses = []
-    for i in range(len(getcourses)): courses.append(getcourses[i][0])
+    for i in range(len(getcourses)): 
+        if getcourses != None : courses.append(getcourses[i][0])
 
     if session['username']:
         if request.method == "POST":
@@ -159,34 +163,48 @@ def schedule():
         return redirect('/teacherlogin')
 
 
+# Creating Forms - wtf
+class Form(FlaskForm):
+    usn = SelectField('usn', choices= [])
+    courses = SelectField('courses', choices= [])
+
+
 @app.route("/grades", methods=['GET', 'POST'])
 def grades():
     #get students_list
+    form = Form()
     stud_tuple = db.fetch(conn, q.get_student_list)
     usn_list = []
-    for i in range(len(stud_tuple)): usn_list.append(stud_tuple[i][3])
+    course_list = []
+    for i in range(len(stud_tuple)): usn_list.append( stud_tuple[i][3])
+    for i in range(len(stud_tuple)): course_list.append(stud_tuple[i][2])
     #student_id = stud_tuple[5][0]
-    print(usn_list)
+    form.usn.choices = [(stud_tuple[i][3], stud_tuple[i][3]) for i in stud_tuple]
+    print(stud_tuple)
+    form = Form()
     if session['username']:
         if request.method == "POST":
             i = request.form['student_id']
             usn = usn_list[int(i)]
             exam = request.form['exam']
             grades = int(request.form['grades'])
-            print(i)
-            print(exam)
-            print(grades)
+            # print(i)
+            # print(exam)
+            # print(grades)
             db.execute(conn, q.update_grades.format(exam, grades, usn))
             return redirect('/teacher')
         else:
-            return render_template("grades.html", usn_list = usn_list, usn_len = len(usn_list))
+            return render_template("grades.html", stud_tuple = stud_tuple, stud_len= len(stud_tuple))
     else:
         return redirect('/teacherlogin')
 
 
 
-@app.route("/upload")
-def upload():
+@app.route("/update", methods=["GET", "POST"])
+def update():
+    if session['username']:
+        if request.method == "POST":
+            return redirect('/teacher')
     return render_template("updates.html")
 
 @app.route("/pwch<string>")
@@ -204,15 +222,13 @@ def controlpanel():
     else:
         return render_template("admin_auth.html")
 
+class SignupForm(FlaskForm):
+    username = TextField('Username')
+    recaptcha = RecaptchaField()
+
 
 @app.route('/test', methods=["GET", "POST"])
 def test():
-    # getting `courses` list
-    getcourses = db.fetch(conn, q.get_all_courses)
-    courses = []
-    for i in range(len(getcourses)): courses.append(getcourses[i][0])
-    getstudents = db.fetch(conn, q.get_student_list)
-
     if request.method == "POST":
         n = int(request.form['list'])
         print(n)
@@ -243,7 +259,7 @@ def logout():
         session.clear()
     return redirect("/")
 
-
+# Create a class form 
 
 if __name__ == '__main__':
     app.run(debug = True)
