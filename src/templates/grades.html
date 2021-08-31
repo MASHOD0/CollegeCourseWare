@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Add Grades{% endblock %}
-{% block head %}Grades{% endblock %}
+{% block head %}{% endblock %}
 {% block content %}
 
 <form action = "#" method = "POST">
@@ -12,7 +12,8 @@
             <td>
                 <select name = "student_id">
                     {% for i in range(usn_len) %}
-                    <option value = "{{i}}">{{usn_list[i]}}</option>
+                        <option value = "{{i}}">{{ usn_list[i] }}</option>
+                    {% endfor %}
                 </select>
             </td>
         </tr>
@@ -36,6 +37,11 @@
             </td>
             <td>
                 <input type = "Integer" name = 'grades' size = 3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="submit"/>
             </td>
         </tr>
     </table>
