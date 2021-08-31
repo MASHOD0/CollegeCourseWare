@@ -3,9 +3,43 @@
 {% block head %}Grades{% endblock %}
 {% block content %}
 
-<table name = grades method= "POST">
-    
-</table>
+<form action = "#" method = "POST">
+    <table name = grades method= "POST">
+        <tr>
+            <td>
+                Select USN:
+            </td>
+            <td>
+                <select name = "student_id">
+                    {% for i in range(usn_len) %}
+                    <option value = "{{i}}">{{usn_list[i]}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Select Exam:
+            </td>
+            <td>
+                <select name = 'exam'>
+                    <option value = 'CIE_1'>CIE 1</option>
+                    <option value = 'CIE_2'>CIE 2</option>
+                    <option value = 'CIE_3'>CIE 3</option>
+                    <option value = 'AAT'>AAT</option>
+                    <option value = 'SEE'>SEE</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Enter Marks:
+            </td>
+            <td>
+                <input type = "Integer" name = 'grades' size = 3>
+            </td>
+        </tr>
+    </table>
+</form>
 
 
 
