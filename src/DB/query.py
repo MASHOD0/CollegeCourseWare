@@ -5,17 +5,17 @@ get_section_id = """
                 WHERE sections = '{}';
                 """
 #2
-get_student_pw="""select distinct password
-                from student
-                where "USN" = '{}' 
-                limit  1;
+get_student_pw="""SELECT distinct password
+                FROM student
+                WHERE "USN" = '{}' 
+                LIMIT  1;
                 """
 #3
 get_teacher_pw="""
-                select distinct password
-                from teachers
-                where name = '{}' 
-                limit  1;
+                SELECT distinct password
+                FROM teachers
+                WHERE name = '{}' 
+                LIMIT  1;
                 """
 #4
 add_new_student = """
@@ -29,20 +29,20 @@ add_new_teacher = """
                  """
 #6
 get_classes = """
-                select class_id,classes.course_id, "link", "time", courses.course_code, department
-                from classes
-                join courses
+                SELECT class_id,classes.course_id, "link", "time", courses.course_code, department
+                FROM classes
+                JOIN courses
                 ON classes.course_id = courses.course_id
-                where section_id = (select section_id from student where "USN" = '{}' limit 1)
+                WHERE section_id = (select section_id from student where "USN" = '{}' limit 1)
                 AND day = '{}';
                 """
 #7
 get_teacher_cls = """
                 SELECT sections.sections, courses.course_code, link, "time"
-                From classes
-                inner join courses on classes.course_id = courses.course_id
-				inner join teachers on classes.teacher_id = teachers.teacher_id 
-				left join sections on classes.section_id = sections.section_id
+                FROM classes
+                INNER JOIN courses ON classes.course_id = courses.course_id
+				INNER JOIN teachers ON classes.teacher_id = teachers.teacher_id 
+				LEFT JOIN sections ON classes.section_id = sections.section_id
 				where teachers.name = '{}'
 				AND "day" = '{}';
                 """
@@ -56,7 +56,7 @@ add_class = """
 get_courseId="""
             SELECT course_id 
 	        FROM public.courses
-	        where course_code = '{}'
+	        WHERE course_code = '{}'
             LIMIT 1;
             """
 #10
@@ -65,13 +65,13 @@ get_teacher_id = """
                 """
 #11
 get_all_courses = """
-                    select course_code
-                    from courses;
+                    SELECT course_code
+                    FROM courses;
                 """
 #12
 get_student_list = """SELECT grades.student_id, semester, course_id, student."USN" 
                         FROM grades
-                        inner join student on  grades.student_id = student.student_id;
+                        INNER JOIN student ON  grades.student_id = student.student_id;
                     """
 #13
 update_grades = """UPDATE public.grades
@@ -79,5 +79,6 @@ update_grades = """UPDATE public.grades
                     WHERE student_id = (select student_id from student where "USN" = '{}');
                 """
 #14 
-get_section = """select student_id from student where section_id = {};"""
+get_section = """SELECT student_id FROM student WHERE section_id = {};"""
 #15
+add_student_to_grades = """INSERT INTO grades(student_id, course_id, semester, section_id) VALUES (2, 1, 2, 21)"""
