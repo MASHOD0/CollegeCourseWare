@@ -3,29 +3,25 @@
 Control Pannel
 {% endblock %}
 {% block content %}
-<table name = "important" style = "border:1px solid black" center = "True">
-    <tr>
-      <td style = "text-align:center;padding:2px;border-spacing: 20px;">
-        <form action="/create_courses" class="inline">
-          <button class="float-left submit-button" n><font size = "10" >Create Courses</font></button>
-        </form>
-      </td>
-      
-    </tr>
-    <tr>
-      <td style = "text-align:center">
-        <form action="/create_sections" class="inline">
-          <button class="float-left submit-button" ><font size = "10">Create Sections</font></button>
-        </form>
-      </td>
-    </tr>
-    <tr>
-      <td style = "text-align:center">
-        <form action="/" class="inline">
-          <button class="float-left submit-button" ><font size = "10">Home</font></button>
-        </form>
-      </td>
-    </tr>
-</table>
+<form action = "#" method = "POST">
+    <table>
+        <tr>
+            <td>
+                Course:
+            </td>
+            <td>
+                <input type="text" name="course" placeholder="course" size="13">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Department:
+            </td>
+            <td>
+                <input type="text" name="department" placeholder="dept" size="4">
+            </td>
+        </tr>
+    </table>
+</form>
    
 {% endblock %}
