@@ -11,8 +11,24 @@
             </td>
             <td>
                 <select name = "student_id">
-                    {% for i in range(usn_len) %}
-                        <option value = "{{i}}">{{ usn_list[i] }}</option>
+                    {% for i in range(stud_len) %}
+                        <option value = "{{i}}">{{ stud_tuple[i][3],  }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <!-- <td>
+                {{ form.csrf_token }}
+                {{ form.usn }}
+            </td> -->
+        </tr>
+        <tr>
+            <td>
+                Select Course:
+            </td>
+            <td>
+                <select name = "course_id">
+                    {% for i in range(course_len) %}
+                        <option value = "{{i}}">{{ course_list[i] }}</option>
                     {% endfor %}
                 </select>
             </td>
