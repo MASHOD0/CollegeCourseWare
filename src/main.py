@@ -5,12 +5,12 @@ from werkzeug.utils import redirect
 import hashlib
 from DB import db, query as q
 import datetime
-from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import SelectField, TextField
+# from flask_wtf import FlaskForm, RecaptchaField
+# from wtforms import SelectField, TextField
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'dodpdo6do6dpd_5#y2L"F'
+# app.config['SECRET_KEY'] = 'dodpdo6do6dpd_5#y2L"F'
 app.secret_key = 'Lydoydodpdo6do6dpd_5#y2L"F4Q8z\n\xec]/'
 
 conn = db.fypDB_Connect()
@@ -20,47 +20,6 @@ conn = db.fypDB_Connect()
 def hello():
     return render_template("index.html")
 
-# logins
-
-@app.route("/teacherlogin", methods=['GET', 'POST'])
-def teacherlogin():
-    try:
-        if request.method == "POST":
-            name = request.form['Name']
-            password = request.form['Password']
-            dk = hashlib.pbkdf2_hmac('sha256', bytes(password, 'utf-8'), b'salt', 100000)
-            
-            fetch_password = db.fetch(conn, q.get_teacher_pw.format(name))
-
-            if fetch_password[0][0] == dk.hex():
-                print("login successful!!!!")
-                session['username']= name
-        
-                return redirect('/teacher')
-        else:
-            return render_template("teacherlogin.html")
-    except:
-        return redirect('/teacherlogin')
-
-
-# student login
-@app.route("/studentlogin", methods=['GET', 'POST'])
-def studentlogin():
-    if request.method == "POST":
-        usn = request.form['USN']
-        password = request.form['Password']
-        dk = hashlib.pbkdf2_hmac('sha256', bytes(password, 'utf-8'), b'salt', 100000)
-    
-        fetch_password = db.fetch(conn, q.get_student_pw.format(usn))
-        
-        if fetch_password[0][0] == dk.hex():
-            print("login successful!!!")
-            session['username'] = usn
-            return redirect('/student')
-        else:
-            return render_template('studentlogin.html')
-    else:
-        return render_template("studentlogin.html")
 
 # signup
 @app.route("/signup", methods=['GET', 'POST'])
@@ -86,9 +45,11 @@ def signup():
     else:
         return render_template("signup.html")
 
+
 #teacher signup
 @app.route("/TSignup", methods=["POST", "GET"])
 def tsignup():
+
     if request.method == "POST":
         name = request.form['Name']
         email = request.form['Email']
@@ -104,6 +65,51 @@ def tsignup():
             return redirect("/TSignup")
     else:
         return render_template("TSignup.html")
+  
+
+# logins
+@app.route("/teacherlogin", methods=['GET', 'POST'])
+def teacherlogin():
+    try:
+        if request.method == "POST":
+            name = request.form['Name']
+            password = request.form['Password']
+
+            dk = hashlib.pbkdf2_hmac('sha256', bytes(password, 'utf-8'), b'salt', 100000)
+            
+            fetch_password = db.fetch(conn, q.get_teacher_pw.format(name))
+
+            if fetch_password[0][0] == dk.hex():
+                print("login successful!!!!")
+                session['username']= name
+        
+                return redirect('/teacher')
+        else:
+            return render_template("teacherlogin.html")
+    except:
+        return redirect('/teacherlogin')
+
+
+# student login
+@app.route("/studentlogin", methods=['GET', 'POST'])
+def studentlogin():
+
+    if request.method == "POST":
+        usn = request.form['USN']
+        password = request.form['Password']
+        dk = hashlib.pbkdf2_hmac('sha256', bytes(password, 'utf-8'), b'salt', 100000)
+    
+        fetch_password = db.fetch(conn, q.get_student_pw.format(usn))
+        
+        if fetch_password[0][0] == dk.hex():
+            print("login successful!!!")
+            session['username'] = usn
+            return redirect('/student')
+        else:
+            return render_template('studentlogin.html')
+    else:
+        return render_template("studentlogin.html")
+
 
 # student homepage
 @app.route("/student")
@@ -163,25 +169,20 @@ def schedule():
         return redirect('/teacherlogin')
 
 
-# Creating Forms - wtf
-class Form(FlaskForm):
-    usn = SelectField('usn', choices= [])
-    courses = SelectField('courses', choices= [])
-
 
 @app.route("/grades", methods=['GET', 'POST'])
 def grades():
     #get students_list
-    form = Form()
+    #form = Form()
     stud_tuple = db.fetch(conn, q.get_student_list)
     usn_list = []
     course_list = []
     for i in range(len(stud_tuple)): usn_list.append( stud_tuple[i][3])
     for i in range(len(stud_tuple)): course_list.append(stud_tuple[i][2])
     #student_id = stud_tuple[5][0]
-    form.usn.choices = [(stud_tuple[i][3], stud_tuple[i][3]) for i in stud_tuple]
+    #form.usn.choices = [(stud_tuple[i][3], stud_tuple[i][3]) for i in stud_tuple]
     print(stud_tuple)
-    form = Form()
+    #form = Form()
     if session['username']:
         if request.method == "POST":
             i = request.form['student_id']
@@ -211,7 +212,7 @@ def update():
 def pwch():
     return render_template("pwch.html")
 
-@app.route("/controlpanel", methods=["GET", "POST"])
+@app.route("/controllogin", methods=["GET", "POST"])
 def controlpanel():
     if request.method == "POST":
         password = request.form['password']
@@ -222,9 +223,9 @@ def controlpanel():
     else:
         return render_template("admin_auth.html")
 
-class SignupForm(FlaskForm):
-    username = TextField('Username')
-    recaptcha = RecaptchaField()
+# class SignupForm(FlaskForm):
+#     username = TextField('Username')
+#     recaptcha = RecaptchaField()
 
 
 @app.route('/test', methods=["GET", "POST"])
@@ -234,9 +235,7 @@ def test():
         print(n)
         print(courses[n])
         return redirect('/test')
-    else:
-         
-       
+    else:   
         return render_template("test.html", courses=courses, course_len=len(courses))
 
 
