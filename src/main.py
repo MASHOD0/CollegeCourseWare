@@ -228,27 +228,39 @@ def controlpanel():
 #     recaptcha = RecaptchaField()
 
 
-@app.route('/test', methods=["GET", "POST"])
-def test():
-    if request.method == "POST":
-        n = int(request.form['list'])
-        print(n)
-        print(courses[n])
-        return redirect('/test')
-    else:   
-        return render_template("test.html", courses=courses, course_len=len(courses))
+# @app.route('/test', methods=["GET", "POST"])
+# def test():
+#     if request.method == "POST":
+#         n = int(request.form['list'])
+#         print(n)
+#         print(courses[n])
+#         return redirect('/test')
+#     else:   
+#         return render_template("test.html", courses=courses, course_len=len(courses))
 
 
 
-@app.route("/create_sections")
+@app.route("/create_sections", methods = ["GET", "POST"])
 def sections():
-    return render_template("create_sections.html")
+    if request.method == "POST":
+        name = request.form["section"]
+        sem = int(request.form["semester"])
+        db.execute(conn, q.add_sections.format(sem, name))
+        return render_template("control.html")
+    else:
+        return render_template("create_sections.html")
 
 
 
 @app.route("/create_courses")
 def courses():
-    return render_template("create_courses.html")
+    if request.method == "POST":
+        course = request.form["course"]
+        department = request.form["department"]
+        db.execute(conn, q.add_sections.format(department, course))
+        return render_template("control.html")
+    else:
+        return render_template("create_courses.html")
 
 
 
