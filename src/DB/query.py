@@ -79,5 +79,5 @@ update_grades = """UPDATE public.grades
                     WHERE student_id = (select student_id from student where "USN" = '{}');
                 """
 #14 
-get_sections = """select student_id from student where section_id = {};"""
+get_section = """select student_id from student where section_id = {};"""
 #15
