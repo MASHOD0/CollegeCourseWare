@@ -203,12 +203,48 @@ def grades():
 
 @app.route("/update", methods=["GET", "POST"])
 def update():
+    # getting the list of courses
+    courses_and_ids = db.fetch(conn, q.get_courses)
+    courses= []
+    course_id= []
+
+    for i in range(len(courses_and_ids)): courses.append(courses_and_ids[i][1])
+    for i in range(len(courses_and_ids)): course_id.append(courses_and_ids[i][0])
+
+    # getting the list of sections
+    sections_and_ids = db.fetch(conn, q.get_sections)
+    section_id = []
+    sections = []
+
+    for i in range(len(sections_and_ids)): section_id.append(sections_and_ids[i][0])
+    for i in range(len(sections_and_ids)): sections.append(sections_and_ids[i][1])
+
     if session['username']:
         if request.method == "POST":
-            return redirect('/teacher')
-    return render_template("updates.html")
+            section_id = int(request.form['section'])
+            course_id = int(request.form['course'])
+            semester = int(request.form['semester'])
+            # print(section_id)
+            # print(course_id)
+            # print(semester)
 
-@app.route("/pwch<string>")
+            student_id = db.fetch(conn, q.get_section.format(section_id))
+
+            for i in range(len(student_id)):
+                db.execute(conn, q.add_student_to_grades.format(student_id[i][0], course_id, semester, section_id))
+                print("student added to grades")
+
+            for i in range(len(student_id)):
+                db.execute(conn, q.add_student_to_attendance.format(student_id[i][0], course_id, section_id))
+                print("student added to attendance")
+
+
+            return redirect('/teacher')
+        else:
+            return render_template("updates.html", section_id= section_id, sections= sections, sect_len= len(sections), course_id = course_id, course = courses, course_len =len(courses) )
+            #, section_id= section_id, sections= sections, sect_len= len(sections), course_id = course_id, course = courses, course_len =len(courses)
+
+@app.route("/pwch<string>", methods=["GET", "POST"])
 def pwch():
     return render_template("pwch.html")
 
@@ -252,12 +288,12 @@ def sections():
 
 
 
-@app.route("/create_courses")
+@app.route("/create_courses", methods = ["GET", "POST"])
 def courses():
     if request.method == "POST":
         course = request.form["course"]
         department = request.form["department"]
-        db.execute(conn, q.add_sections.format(department, course))
+        db.execute(conn, q.add_courses.format(department, course))
         return render_template("control.html")
     else:
         return render_template("create_courses.html")
