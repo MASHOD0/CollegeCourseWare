@@ -81,8 +81,19 @@ update_grades = """UPDATE public.grades
 #14 
 get_section = """SELECT student_id FROM student WHERE section_id = {};"""
 #15
-add_student_to_grades = """INSERT INTO grades(student_id, course_id, semester, section_id) VALUES (2, 1, 2, 21)"""
+add_student_to_grades = """INSERT INTO grades(student_id, course_id, semester, section_id) VALUES ({}, {}, {}, {})"""
 #16
 add_courses = """INSERT INTO courses(course_id, department, course_code) VALUES (DEFAULT, '{}', '{}');"""
 #17
 add_sections = """INSERT INTO sections(section_id, semester, sections) VALUES (DEFAULT, {}, '{}');"""
+#18
+get_sections = """
+                SELECT section_id, sections
+                FROM sections
+                """
+#19
+get_courses = """SELECT course_id, course_code FROM courses;"""
+#20
+get_section = """SELECT student_id FROM student WHERE section_id = {};"""
+#21
+add_student_to_attendance = """INSERT INTO "Attendance"(student_id, course_id, section_id) VALUES ({}, {}, {});""" 
