@@ -3,34 +3,18 @@
 {% block head %}{% endblock %}
 {% block content %}
 
-<form action = "#" method = "POST">
-    <table name = grades method= "POST">
+<form action = "#" method="POST">
+    <table>
         <tr>
             <td>
-                Select USN:
+                Select: Course , Section
             </td>
             <td>
-                <select name = "student_id">
-                    {% for i in range(stud_len) %}
-                        <option value = "{{i}}">{{ stud_tuple[i][3],  }}</option>
+               <select name = "section_course">
+                   {% for i in range(list_len) %}
+                        <option value="{{ i }}">{{ list[i][2] }}, {{ list[i][3] }}</option>
                     {% endfor %}
-                </select>
-            </td>
-            <!-- <td>
-                {{ form.csrf_token }}
-                {{ form.usn }}
-            </td> -->
-        </tr>
-        <tr>
-            <td>
-                Select Course:
-            </td>
-            <td>
-                <select name = "course_id">
-                    {% for i in range(course_len) %}
-                        <option value = "{{i}}">{{ course_list[i] }}</option>
-                    {% endfor %}
-                </select>
+               </select> 
             </td>
         </tr>
         <tr>
@@ -38,21 +22,13 @@
                 Select Exam:
             </td>
             <td>
-                <select name = 'exam'>
-                    <option value = 'CIE_1'>CIE 1</option>
-                    <option value = 'CIE_2'>CIE 2</option>
-                    <option value = 'CIE_3'>CIE 3</option>
-                    <option value = 'AAT'>AAT</option>
-                    <option value = 'SEE'>SEE</option>
+                <select name = "exam">
+                    <option value= "CIE_1">CIE 1</option>
+                    <option value= "CIE_2">CIE 2</option>
+                    <option value="CIE_3">CIE_3</option>
+                    <option value="AAT">AAT</option>
+                    <option value="SEE">SEE</option>
                 </select>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Enter Marks:
-            </td>
-            <td>
-                <input type = "Integer" name = 'grades' size = 3>
             </td>
         </tr>
         <tr>
@@ -62,8 +38,11 @@
         </tr>
     </table>
 </form>
+{% if switch != None %}
+<form action= "#" method = "POST">
+    
+</form>
 
-
-
+{% endif %}
 
 {% endblock %}
