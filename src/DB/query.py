@@ -76,7 +76,7 @@ get_student_list = """SELECT grades.student_id, semester, course_id, student."US
 #13
 update_grades = """UPDATE public.grades
                     SET "{}"={}
-                    WHERE student_id = (select student_id from student where "USN" = '{}');
+                    WHERE student_id = {};
                 """
 #14 
 get_section = """SELECT student_id FROM student WHERE section_id = {};"""
@@ -97,3 +97,11 @@ get_courses = """SELECT course_id, course_code FROM courses;"""
 get_section = """SELECT student_id FROM student WHERE section_id = {};"""
 #21
 add_student_to_attendance = """INSERT INTO "Attendance"(student_id, course_id, section_id) VALUES ({}, {}, {});""" 
+#22
+get_section_from_grades ="""SELECT DISTINCT grades.section_id, grades.course_id, courses.course_code, sections.sections 
+                            FROM grades
+                            INNER JOIN courses ON grades.course_id = courses.course_id
+                            INNER JOIN sections on grades.section_id = sections.section_id;
+                         """
+#23
+get_section_usn = """SELECT student_id, "USN" FROM student WHERE section_id = {};"""
