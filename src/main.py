@@ -212,7 +212,8 @@ def grades():
     switch = None
     if session['username']:
         if request.method == "POST":
-            session["section"] = int(request.form["section_course"])
+            i = int(request.form["section_course"])
+            session["section"]= get_section_subject[i][0]
             session["exam"] = request.form['exam']
         
             return redirect("/grades1")
@@ -320,8 +321,8 @@ def attendance():
 
     if session['username']:
         if request.method == "POST":
-            session["section"] = int(request.form["section_course"])
-            session["exam"] = request.form['exam']
+            i = int(request.form["section_course"])
+            session["section_att"] = get_section_subject[i][0]
         
             return redirect("/attendance1")
             
@@ -339,14 +340,22 @@ def attendance():
 
 
 
+@app.route('/attendance1', methods=["GET", "POST"])
+def attendance1():
+    section = session["section_att"]
+    get_section_subject = db.fetch(conn, q.get_section_from_grades)
+    get_usn = db.fetch(conn, q.get_section_usn.format(get_section_subject[section][0]))
 
+    if session['username']:
+        if request.method == "POST":
+            
+            
+            return redirect('/grades')
+        else:
+            return render_template("attendance1.html", usn = get_usn, usn_len =len(get_usn))
 
-
-
-
-
-
-
+    else:
+        return redirect('/teacherlogin')
 
 
 
