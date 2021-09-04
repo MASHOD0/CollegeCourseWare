@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Add Grades{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+
+<form action = "#" method="POST">
+    <table>
+        <tr>
+            <td>
+                Select: Course , Section
+            </td>
+            <td>
+               <select name = "section_course">
+                   {% for i in range(list_len) %}
+                        <option value="{{ i }}">{{ list[i][2] }}, {{ list[i][3] }}</option>
+                    {% endfor %}
+               </select> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="submit"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+{% endblock %}
