@@ -129,7 +129,7 @@ get_section_from_grades ="""SELECT DISTINCT grades.section_id, grades.course_id,
 get_section_usn = """SELECT student_id, "USN" FROM student WHERE section_id = {};"""
 
 #24
-get_section_from_grades = """SELECT DISTINCT "Attendance".section_id, "Attendance".course_id,courses.course_code , sections.sections 
+get_section_from_attendance = """SELECT DISTINCT "Attendance".section_id, "Attendance".course_id,courses.course_code , sections.sections 
                             FROM "Attendance"
                             INNER JOIN courses ON "Attendance".course_id = courses.course_id
                             INNER JOIN sections on "Attendance".section_id = sections.section_id;
