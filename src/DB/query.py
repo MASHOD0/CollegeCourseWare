@@ -126,7 +126,7 @@ get_section_from_grades ="""SELECT DISTINCT grades.section_id, grades.course_id,
                          """
 
 #23
-get_section_usn = """SELECT student_id, "USN" FROM student WHERE section_id = {};"""
+get_section_usn = """SELECT student_id, "USN", name FROM student WHERE section_id = {};"""
 
 #24
 get_section_from_attendance = """SELECT DISTINCT "Attendance".section_id, "Attendance".course_id,courses.course_code , sections.sections 
