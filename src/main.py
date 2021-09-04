@@ -172,32 +172,53 @@ def schedule():
 
 @app.route("/grades", methods=['GET', 'POST'])
 def grades():
-    #get students_list
-    #form = Form()
-    stud_tuple = db.fetch(conn, q.get_student_list)
-    usn_list = []
-    course_list = []
-    for i in range(len(stud_tuple)): usn_list.append( stud_tuple[i][3])
-    for i in range(len(stud_tuple)): course_list.append(stud_tuple[i][2])
-    #student_id = stud_tuple[5][0]
-    #form.usn.choices = [(stud_tuple[i][3], stud_tuple[i][3]) for i in stud_tuple]
-    print(stud_tuple)
-    #form = Form()
+    get_section_subject = db.fetch(conn, q.get_section_from_grades)
+    switch = None
     if session['username']:
         if request.method == "POST":
-            i = request.form['student_id']
-            usn = usn_list[int(i)]
-            exam = request.form['exam']
-            grades = int(request.form['grades'])
-            # print(i)
-            # print(exam)
-            # print(grades)
-            db.execute(conn, q.update_grades.format(exam, grades, usn))
-            return redirect('/teacher')
+            session["section"] = int(request.form["section_course"])
+            session["exam"] = request.form['exam']
+        
+            return redirect("/grades1")
+            
+            # if request.method == "POST":
+            #     for i in range(len(get_usn)):
+            #         print(request.form[str(i)])
+            # else:
+            #     return render_template("grades1.html", usn = get_usn, usn_len =len(get_usn) )
+                
+            
         else:
-            return render_template("grades.html", stud_tuple = stud_tuple, stud_len= len(stud_tuple))
+            return render_template("grades.html", list = get_section_subject, list_len = len(get_section_subject), switch = switch )
     else:
         return redirect('/teacherlogin')
+
+@app.route("/grades1", methods=["GET", "POST"])
+def grades1():
+    section = session["section"]
+    exam = session["exam"]
+     
+    get_section_subject = db.fetch(conn, q.get_section_from_grades)
+    get_usn = db.fetch(conn, q.get_section_usn.format(get_section_subject[section][0]))
+    print(get_usn)
+
+
+    if session['username']:
+        if request.method == "POST":
+            for i in range(len(get_usn)):
+                marks = int(request.form[str(i)])
+                db.execute(conn, q.update_grades.format(exam, marks, get_usn[i][0]))
+            
+            return redirect('/grades')
+        else:
+            return render_template("grades1.html", usn = get_usn, usn_len =len(get_usn))
+
+    else:
+        return redirect('/teacherlogin')
+
+
+
+
 
 
 
@@ -245,7 +266,7 @@ def update():
             #, section_id= section_id, sections= sections, sect_len= len(sections), course_id = course_id, course = courses, course_len =len(courses)
 
 @app.route("/pwch<string>", methods=["GET", "POST"])
-def pwch():
+def pwch(string):
     return render_template("pwch.html")
 
 @app.route("/controllogin", methods=["GET", "POST"])
@@ -258,22 +279,6 @@ def controlpanel():
             return render_template("admin_auth.html")
     else:
         return render_template("admin_auth.html")
-
-# class SignupForm(FlaskForm):
-#     username = TextField('Username')
-#     recaptcha = RecaptchaField()
-
-
-# @app.route('/test', methods=["GET", "POST"])
-# def test():
-#     if request.method == "POST":
-#         n = int(request.form['list'])
-#         print(n)
-#         print(courses[n])
-#         return redirect('/test')
-#     else:   
-#         return render_template("test.html", courses=courses, course_len=len(courses))
-
 
 
 @app.route("/create_sections", methods = ["GET", "POST"])
