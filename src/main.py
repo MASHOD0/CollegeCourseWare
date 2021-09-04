@@ -111,6 +111,42 @@ def studentlogin():
         return render_template("studentlogin.html")
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # student homepage
 @app.route("/student")
 def student():
@@ -264,6 +300,61 @@ def update():
         else:
             return render_template("updates.html", section_id= section_id, sections= sections, sect_len= len(sections), course_id = course_id, course = courses, course_len =len(courses) )
             #, section_id= section_id, sections= sections, sect_len= len(sections), course_id = course_id, course = courses, course_len =len(courses)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/attendance", methods=['GET', 'POST'])
+def attendance():
+    get_section_subject = db.fetch(conn, q.get_section_from_attendance)
+
+    if session['username']:
+        if request.method == "POST":
+            session["section"] = int(request.form["section_course"])
+            session["exam"] = request.form['exam']
+        
+            return redirect("/attendance1")
+            
+            # if request.method == "POST":
+            #     for i in range(len(get_usn)):
+            #         print(request.form[str(i)])
+            # else:
+            #     return render_template("grades1.html", usn = get_usn, usn_len =len(get_usn) )
+                
+            
+        else:
+            return render_template("attendance.html", list = get_section_subject, list_len = len(get_section_subject) )
+    else:
+        return redirect('/teacherlogin')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route("/pwch<string>", methods=["GET", "POST"])
 def pwch(string):
