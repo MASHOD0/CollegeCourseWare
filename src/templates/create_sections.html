@@ -3,19 +3,23 @@
 Control Pannel
 {% endblock %}
 {% block content %}
-<form action = "#" method = "POST">
-    <table>
+<body style="background-image: url(https://ohcampus.com/uploads/college/Dayananda-Sagar-College-of-447646423.jpg); background-size: cover;background-repeat: no-repeat;background-position: centre; position: relative;"></body>
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<form action="#" method = 'POST'>    
+    <table style="margin: auto; border: 3px solid black; background-color: white; padding: 60px; border-radius: 10px; margin-top: 70px; ;" >
         <tr>
             <td>
-                Section:
+                <font size="5" color= "#000000" > Section :</font>
             </td>
             <td>
-                <input type="text" name="section" placeholder="section" size="3">
+                <input type="text" name="section" placeholder="section" size="37">
             </td>
         </tr>
         <tr>
             <td>
-                Semester:
+                <font size="5" color= "#000000" > Semester</font>
             </td>
             <td>
                 <select name="semester">
@@ -32,10 +36,11 @@ Control Pannel
         </tr>
         <tr>
             <td>
-                <input type="submit" value="create section"/>
+                <input type="submit" value="create section" style="box-sizing: border-box;background-color: green; size: 10;"/>
             </td>
         </tr>
     </table>
 </form>
    
+
 {% endblock %}
