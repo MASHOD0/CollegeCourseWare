@@ -1,18 +1,16 @@
 {% extends "base.html" %}
 {% block title %} Signup {% endblock %}
 {% block head %}
-Signup
+
 <style type="text/css">
     .important { color: #336699; }
 </style>
 {% endblock %}
 {% block content %}
-<body style="background-image: url(https://ohcampus.com/uploads/college/Dayananda-Sagar-College-of-447646423.jpg); background-size: cover;background-repeat: no-repeat;background-position: centre; position: relative;">
-
 
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <form action="#" method = 'POST'>    
-    <table style="margin: auto; border: 3px solid black; background-color: white; padding: 30px; border-radius: 10px; margin-top: 70px;" >
+    <table>
         <caption style="font-size: xx-large; font-weight: bold; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; color: black;">Teacher Signup</caption>   
  
         <tr>
@@ -53,6 +51,7 @@ Signup
                      <option value="ME">Mechanical Engineering</option>
                      <option value="PY">Physics </option>
                     <option value="CE">Chemistry</option>
+                    <option value="MA">Mathematics</option>
                 </select>
              </TD> 
 
@@ -73,12 +72,16 @@ Signup
                 <input type="Password" name="Confirm Password" size="47" placeholder="Confirm Password">
             </td>
         </tr>
-<tr>
-    <td>
-        <input type="submit" value="submit"style="background-color: green;border-radius: 12px;"/>
-    </td>
-</tr>  
+        <tr>
+            <td>
+                <input type="submit" value="submit"style="font-size: larger;"/>
+            </td>
+            
+        </tr>  
+    </table>
+        
 </form>
+
 
 
 {% endblock %}
