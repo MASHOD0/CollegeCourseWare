@@ -13,6 +13,7 @@ app = Flask(__name__)
 # app.config['SECRET_KEY'] = 'dodpdo6do6dpd_5#y2L"F'
 app.secret_key = 'Lydoydodpdo6do6dpd_5#y2L"F4Q8z\n\xec]/'
 
+#connection to database
 conn = db.fypDB_Connect()
 
 # Home Page
@@ -24,6 +25,9 @@ def hello():
 # signup
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
+    """
+    This is signup page for students
+    """
     if request.method == "POST":
         usn = request.form['USN']
         password = request.form['Password']
@@ -33,7 +37,9 @@ def signup():
         branch = request.form['Branch']
         c_password = request.form['Confirm Password']
 
+        # password hash
         dk = hashlib.pbkdf2_hmac('sha256', bytes(password, 'utf-8'), b'salt', 100000)
+       
         section_id = db.fetch(conn, q.get_section_id.format(section))
         sectionId = section_id[0][0]
 
@@ -117,6 +123,9 @@ def studentlogin():
 # student homepage
 @app.route("/student")
 def student():
+    """
+    Student homepage
+    """
     if session['username']:
         now = datetime.datetime.now()
         day = now.strftime("%A")
