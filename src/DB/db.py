@@ -44,8 +44,9 @@ def fetch(conn, query):
         cur = cursor(conn)
         cur.execute(query)
         rows = cur.fetchall()
-        return rows
         print('query fetched')
+        return rows
+        
     except Exception as e:
         print(e)
 
