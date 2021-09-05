@@ -126,7 +126,7 @@ get_section_from_grades ="""SELECT DISTINCT grades.section_id, grades.course_id,
                          """
 
 #23
-get_section_usn = """SELECT student_id, "USN", name FROM student WHERE section_id = {};"""
+get_section_usn = """SELECT student_id, "USN" FROM student WHERE section_id = {};"""
 
 #24
 get_section_from_attendance = """SELECT DISTINCT "Attendance".section_id, "Attendance".course_id,courses.course_code , sections.sections 
@@ -134,3 +134,28 @@ get_section_from_attendance = """SELECT DISTINCT "Attendance".section_id, "Atten
                             INNER JOIN courses ON "Attendance".course_id = courses.course_id
                             INNER JOIN sections on "Attendance".section_id = sections.section_id;
                             """
+
+#25
+get_section_name = """select "Attendance".student_id, "USN", "Name", missed, total from "Attendance" 
+                    INNER JOIN "student" ON "Attendance".student_id = student.student_id
+                    WHERE "Attendance".section_id = {}
+                    AND "Attendance".course_id = {};
+                    """
+add_total = """UPDATE public."Attendance"
+                SET total= {}
+                WHERE student_id = {}
+                AND course_id = {}
+                AND section_id = {};
+            """
+add_missed = """UPDATE public."Attendance"
+                SET missed= {}
+                WHERE student_id = {}
+                AND course_id = {}
+                AND section_id = {};
+            """
+get_missed = """SELECT missed
+                FROM public."Attendance"
+                WHERE student_id = {}
+                AND course_id = {}
+                AND section_id = {};
+            """
