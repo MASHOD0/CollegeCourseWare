@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block title %} Student login {% endblock %}
 {%block head %}
-Teacher login
 <style type="text/css">
     .important { color: #336699; }
 </style>
 {% endblock %}
 {% block content %}
-<body style="background-image: url(https://images.unsplash.com/photo-1578589335615-9e804277a5af?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Ym9va3MlMjBhbmQlMjBsYXB0b3B8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80);opacity: 1; background-size: cover;background-repeat: no-repeat;background-position: centre; position: relative;">
+<br>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <form action="#" method = 'POST'>    
-        <table style="margin: auto; border: 3px solid black; background-color: burlywood; padding: 30px; border-radius: 10px; margin-top: 70px;" >
+        <table>
             <tr>
                 <td>
                 <font size="5" color= "#000000" > USN:</font>
@@ -26,17 +26,21 @@ Teacher login
                 <td>
                     <input type="Password" name="Password" size="47" placeholder="Enter Password">
                 </td>
+    
             </tr>
-      <tr>
+        </table>    
+        <tr>
             <td>
-            <input type="submit" value="submit" style="background-color: green;border-radius: 8px;"/>
+                <input type="submit" style= "font-size: larger;" value="sign-in"/> 
             
-        </td>
-        <td>
-            <button class="float-left submit-button" style="background-color: red; border-radius: 8px;" >Not Signed-up ?</button>
-        </td>
-    </tr>  
+            </td>
+       
+        </tr>  
     </form>
+    <br>
+        <form action="/signup" class="inline">
+            <button class="float-left submit-button" ><font size = "10">Signup</font></button>
+        </form>
 
 
 
