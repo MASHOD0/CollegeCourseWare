@@ -55,6 +55,9 @@ def signup():
 #teacher signup
 @app.route("/TSignup", methods=["POST", "GET"])
 def tsignup():
+    """
+    Teachers signup
+    """
 
     if request.method == "POST":
         name = request.form['Name']
@@ -76,6 +79,9 @@ def tsignup():
 # logins
 @app.route("/teacherlogin", methods=['GET', 'POST'])
 def teacherlogin():
+    """
+    This is the login for teachers.
+    """
     try:
         if request.method == "POST":
             name = request.form['Name']
@@ -99,6 +105,9 @@ def teacherlogin():
 # student login
 @app.route("/studentlogin", methods=['GET', 'POST'])
 def studentlogin():
+    """
+    This is the login for students.
+    """
 
     if request.method == "POST":
         usn = request.form['USN']
@@ -131,7 +140,8 @@ def student():
         day = now.strftime("%A")
         #print(day)
         classes = db.fetch(conn, q.get_classes.format(session['username'], day))
-        return render_template('student.html', classes=classes, class_len= len(classes))
+        grades = db.fetch(conn, q.get_grades.format(session['username']))
+        return render_template('student.html', classes=classes, class_len= len(classes), grades = grades, grade_len = len(grades))
     else:
         return redirect('/studentlogin')
 
@@ -139,7 +149,11 @@ def student():
 # teacher homepage
 @app.route("/teacher")
 def teacher():
+    """
+    Teacher Homepage
+    """
     if session['username']:
+        # getting the day
         now = datetime.datetime.now()
         day = now.strftime("%A")
         classes = db.fetch(conn, q.get_teacher_cls.format(session['username'], day))
@@ -150,6 +164,9 @@ def teacher():
 
 @app.route("/schedule", methods=["POST", "GET"])
 def schedule():
+    """
+    Page for scheduling classes
+    """
     # getting `courses` list 
     getcourses = db.fetch(conn, q.get_all_courses)
     courses = []
@@ -184,8 +201,11 @@ def schedule():
 
 @app.route("/grades", methods=['GET', 'POST'])
 def grades():
+    """
+    Page for adding grades , there is another page which consists of that.
+    """
     get_section_subject = db.fetch(conn, q.get_section_from_grades)
-    switch = None
+
     if session['username']:
         if request.method == "POST":
             session["section"] = int(request.form["section_course"])
@@ -198,11 +218,11 @@ def grades():
             #     for i in range(len(get_usn)):
             #         print(request.form[str(i)])
             # else:
-            #     return render_template("grades1.html", usn = get_usn, usn_len =len(get_usn) )
+            #     return render_template("grades1.html", usn = get_usn, usn_len =len(get_usn))
                 
             
         else:
-            return render_template("grades.html", list = get_section_subject, list_len = len(get_section_subject), switch = switch )
+            return render_template("grades.html", list = get_section_subject, list_len = len(get_section_subject), )
     else:
         return redirect('/teacherlogin')
 
@@ -276,11 +296,7 @@ def update():
             return redirect('/teacher')
         else:
             return render_template("updates.html", section_id= section_id, sections= sections, sect_len= len(sections), course_id = course_id, course = courses, course_len =len(courses) )
-            #, section_id= section_id, sections= sections, sect_len= len(sections), course_id = course_id, course = courses, course_len =len(courses)
-
-
-
-
+           
 
 
 
@@ -327,11 +343,10 @@ def attendance1():
     print(total)
     if session['username']:
         if request.method == "POST":
+
             absentee = request.form.getlist('absentee')
-            
             absentee = [int(i) for i in absentee]
             
-
             print(absentee)
             for i in range(len(get_usn)):
                 db.execute(conn, q.add_total.format(total, get_usn[i][0], get_section_subject[section][1], get_section_subject[section][0] ))
