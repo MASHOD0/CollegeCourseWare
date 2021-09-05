@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Add Attendance{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+
+
+
+<form action = "#" method="POST">
+    <table>
+        {% for i in range(usn_len) %}
+            <tr>
+                <td>
+                    {{ usn_list[i][2] }}
+                </td>
+                <td>
+                    {{ usn_list[i][1] }}
+                </td>
+                <td>
+                    <input type="checkbox" value="{{ i }}" name = "absentee">
+                </td>
+            </tr>
+
+        {% endfor %}
+        <tr>
+            <td>
+                <input type="submit" value="submit"/>
+            </td>
+        </tr>
+    </table>
+</form>
+ 
+
+
+{% endblock %}
