@@ -8,9 +8,10 @@
 {% endblock %}
 {% block content %}
   <h1>Classes</h1>
-  <table name = "Classes" style = "border:1px solid black" center = "True">
+
+  <table name = "Classes" style = "border:1px solid black; width: 50%" center = "True">
   <tr>
-    <th>
+    <th 
       Sr.No
     </th>
     <th>
@@ -46,6 +47,62 @@
   </tr>
   {% endfor %}
   </table>
+  <table name = "Classes" style = "border:1px solid black; width: 50%" center = "True">
+    <tr>
+      <th> 
+        Sr.No
+      </th>
+      <th>
+        Course Code
+      </th>
+      <th>
+        Semester
+      </th>
+      <th>
+        CIE 1
+      </th>
+      <th>
+        CIE 2
+      </th>
+      <th>
+        CIE 3
+      </th>
+      <th>
+        AAT
+      </th>
+      <th>
+        SEE
+      </th>
+    </tr>
+    {% for i in range(grade_len) %}
+    <tr>
+      <td>
+        {{ i+1 }}
+      </td>
+      <td>
+        {{ grades[i][0] }}
+      </td>
+      <td>
+        {{ grades[i][1] }}
+      </td>
+      <td>
+        {{ grades[i][2] }}
+      </td>
+      <td>
+        {{ grades[i][3] }}
+      </td>
+      <td>
+        {{ grades[i][4] }}
+      </td>
+      <td>
+        {{ grades[i][5] }}
+      </td>
+      <td>
+        {{ grades[i][6] }}
+      </td>
+    </tr>
+    {% endfor %}
+    </table>
   <br>
   <br>
   <br>
