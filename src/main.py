@@ -114,39 +114,6 @@ def studentlogin():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # student homepage
 @app.route("/student")
 def student():
@@ -212,8 +179,8 @@ def grades():
     switch = None
     if session['username']:
         if request.method == "POST":
-            i = int(request.form["section_course"])
-            session["section"]= get_section_subject[i][0]
+            session["section"] = int(request.form["section_course"])
+
             session["exam"] = request.form['exam']
         
             return redirect("/grades1")
@@ -245,7 +212,7 @@ def grades1():
             for i in range(len(get_usn)):
                 marks = int(request.form[str(i)])
                 db.execute(conn, q.update_grades.format(exam, marks, get_usn[i][0]))
-            
+
             return redirect('/grades')
         else:
             return render_template("grades1.html", usn = get_usn, usn_len =len(get_usn))
@@ -312,17 +279,14 @@ def update():
 
 
 
-
-
-
-@app.route("/attendance", methods=['GET', 'POST'])
+@app.route("/attendence", methods=['GET', 'POST'])
 def attendance():
     get_section_subject = db.fetch(conn, q.get_section_from_attendance)
 
     if session['username']:
         if request.method == "POST":
-            i = int(request.form["section_course"])
-            session["section_att"] = get_section_subject[i][0]
+            session["section_att"] = int(request.form["section_course"])
+            
         
             return redirect("/attendance1")
             
@@ -343,16 +307,39 @@ def attendance():
 @app.route('/attendance1', methods=["GET", "POST"])
 def attendance1():
     section = session["section_att"]
-    get_section_subject = db.fetch(conn, q.get_section_from_grades)
-    get_usn = db.fetch(conn, q.get_section_usn.format(get_section_subject[section][0]))
+    get_section_subject = db.fetch(conn, q.get_section_from_attendance)
+    get_usn = db.fetch(conn, q.get_section_name.format(get_section_subject[section][0], get_section_subject[section][1]))
+    print(get_usn)
 
+    if get_usn[0][4] == None:
+        total = 1
+    else:
+        total = get_usn[0][4] + 1
+    print(total)
     if session['username']:
         if request.method == "POST":
+            absentee = request.form.getlist('absentee')
             
+            absentee = [int(i) for i in absentee]
             
+
+            print(absentee)
+            for i in range(len(get_usn)):
+                db.execute(conn, q.add_total.format(total, get_usn[i][0], get_section_subject[section][1], get_section_subject[section][0] ))
+
+
+            for i in range(len(absentee)):
+                missed = db.fetch(conn, q.get_missed.format(get_usn[absentee[i]][0], get_section_subject[section][1], get_section_subject[section][0]))
+                missed_int = missed[0][0]  
+                if missed_int == None:
+                    missed_int = 1
+                else:
+                    missed_int += 1
+                db.execute(conn, q.add_missed.format(missed_int, get_usn[absentee[i]][0], get_section_subject[section][1], get_section_subject[section][0]))
+
             return redirect('/grades')
         else:
-            return render_template("attendance1.html", usn = get_usn, usn_len =len(get_usn))
+            return render_template("attendance1.html", usn_list = get_usn, usn_len =len(get_usn))
 
     else:
         return redirect('/teacherlogin')
