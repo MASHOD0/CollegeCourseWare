@@ -3,35 +3,31 @@
 Control Pannel
 {% endblock %}
 {% block content %}
-<style>
-    table,th,td {
-        border: 1px solid black;
-          }
-    table {
-        border-collapse: collapse;
-       }
-</style>
-<form action = "#" method = "POST">
-    <table>
+<body style="background-image: url(https://images.unsplash.com/photo-1578589335615-9e804277a5af?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Ym9va3MlMjBhbmQlMjBsYXB0b3B8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80); background-size: cover;background-repeat: no-repeat;background-position: centre; position: relative;"></body>
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<form action="#" method = 'POST'>    
+    <table style="margin: auto; border: 3px solid black; background-color: white; padding: 30px; border-radius: 20px; margin-top: 70px; height: 100px ;" >
         <tr>
             <td>
-                Course:
+                font size="5" color= "#000000" >  Course:</font>
             </td>
             <td>
-                <input type="text" name="course" placeholder="course" size="13">
+                <input type="text" name="course" placeholder="course" size="47">
             </td>
         </tr>
         <tr>
             <td>
-                Department:
+                <font size="5" color= "#000000" > Department:</font>
             </td>
             <td>
-                <input type="text" name="department" placeholder="dept" size="4">
+                <input type="text" name="department" placeholder="dept" size="47">
             </td>
         </tr>
         <tr>
             <td>
-                <input type="submit" value="create courses"/>
+                <input type="submit" value="create courses" style="border-radius: 3px; background-color: green;"/>
             </td>
         </tr>
     </table>
