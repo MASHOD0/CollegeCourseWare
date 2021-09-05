@@ -141,21 +141,31 @@ get_section_name = """select "Attendance".student_id, "USN", "Name", missed, tot
                     WHERE "Attendance".section_id = {}
                     AND "Attendance".course_id = {};
                     """
+#26
 add_total = """UPDATE public."Attendance"
                 SET total= {}
                 WHERE student_id = {}
                 AND course_id = {}
                 AND section_id = {};
             """
+#27
 add_missed = """UPDATE public."Attendance"
                 SET missed= {}
                 WHERE student_id = {}
                 AND course_id = {}
                 AND section_id = {};
             """
+#28
 get_missed = """SELECT missed
                 FROM public."Attendance"
                 WHERE student_id = {}
                 AND course_id = {}
                 AND section_id = {};
+            """
+#29
+get_grades=  """
+            select courses.course_code, semester, "CIE_1", "CIE_2", "CIE_3", "AAT", "SEE" from grades
+            inner join courses
+            on grades.course_id = courses.course_id
+            where student_id = (select student_id from student where "USN" = '{}');
             """
