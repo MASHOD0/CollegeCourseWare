@@ -71,6 +71,8 @@ pip3 install -r src/requirements.txt
 for mac and linux
 ## Step 4: Run the `main.py` file to start the application 
 This will start running your application on [localhost:5000](http://localhost:5000/)
-#Developer
+
+
+# Developer
 -[Mashhood Alam](https://github.com/MASHOD0)
 
