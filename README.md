@@ -1,42 +1,42 @@
 # FirstYearProject
 College courseware is a web application which helps streamline and modernise the
 way classes are conducted in this pandemic , we have four core modules\
-● Registration\
-● Scheduling and course delivery\
-● Attendance\
-● Grading\
+  ● Registration\
+  ● Scheduling and course delivery\
+  ● Attendance\
+  ● Grading
 
 ## Registration
 This module has three different parts to it\
-● Teacher Registration\
-● Student Registration\
-● Administration\
+  ● Teacher Registration\
+  ● Student Registration\
+  ● Administration\
 Each part has its own way of creating users, storing the credentials and authenticating
 their identity while login.
 
 ## Scheduling and course delivery
 This module can be split into two\
-● Faculty end\
-● Student end\
+  ● Faculty end\
+  ● Student end\
 On the faculty end the profs. can schedule classes for a given day and they get notified
 of their classes\
-On the student end students can access the classes assigned by the faculty\
+On the student end students can access the classes assigned by the faculty
 
 ## Attendance
 This module can also be split into two\
-● Faculty end\
-● student end\
+  ● Faculty end\
+  ● student end\
 On the faculty end profs. can mark the attendance of a given class. And receive
 insights from this in their newsletter\
 On the student end students can view their attendance .\
 
 ## Grading
 This module can also be split into two\
-● Faculty end\
-● student end\
+  ● Faculty end\
+  ● student end\
 On the faculty end profs. can upload the marks of a particular class. And receive
 insights from this in their newsletter\
-On the student end students can view their grades.\
+On the student end students can view their grades.
 
 # Installation Guide 
 ## step 0: Clone This repository
