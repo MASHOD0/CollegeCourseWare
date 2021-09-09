@@ -50,7 +50,8 @@ insights from this in their newsletter\
 On the student end students can view their grades.
 
 # Installation Guide 
-## step 0: Clone This repository
+## step 0: Getting the Repository
+Clone [this](https://github.com/MASHOD0/FirstYearProject/) Repository on your system.
 ## Step 1: Postrges
 Install postgres from [here](https://www.postgresql.org/download/)
 ## Step 2: Create A database
