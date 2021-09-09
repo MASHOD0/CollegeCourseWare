@@ -169,3 +169,9 @@ get_grades=  """
             on grades.course_id = courses.course_id
             where student_id = (select student_id from student where "USN" = '{}');
             """
+get_attendance = """
+                    select courses.course_code,  missed, total from "Attendance"
+                    inner join courses
+                    on "Attendance".course_id = courses.course_id
+                    where student_id = (select student_id from student where "USN" = '{}');
+                    """
