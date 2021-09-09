@@ -28,7 +28,7 @@ This module can also be split into two\
   ● student end\
 On the faculty end profs. can mark the attendance of a given class. And receive
 insights from this in their newsletter\
-On the student end students can view their attendance .\
+On the student end students can view their attendance .
 
 ## Grading
 This module can also be split into two\
