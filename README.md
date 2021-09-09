@@ -1,4 +1,4 @@
-# FirstYearProject
+# FirstYearProject: College CourseWare
 College courseware is a web application which helps streamline and modernise the
 way classes are conducted in this pandemic , we have four core modules\
   ● Registration\
