@@ -6,7 +6,10 @@
 <h1>
 Upcoming Classes
 </h1>
-<table name = "Classes" style = "border:1px solid black" center = "True">
+<style>
+  tr:hover {background-color: white;}
+</style>
+<table name = "Classes" style = "border:1px solid black; " center = "True">
   <tr>
     <th>
       Sr.No
@@ -47,6 +50,12 @@ Upcoming Classes
 <br>
 <br>
 
+<form action="/attendence" class="inline">
+  <button class="float-left submit-button" ><font size = "10">Add Attendance</font></button>
+</form>
+<br>
+
+
 
 <form action="/schedule" class="inline">
   <button class="float-left submit-button" ><font size = "10">Schedule Classes</font></button>
@@ -63,10 +72,7 @@ Upcoming Classes
 </form>
 <br>
 
-<form action="/attendence" class="inline">
-  <button class="float-left submit-button"><font size = "10">Add Attendance</font></button>
-</form>
-<br>
+
 
 
 <form action="/logout" class="inline">
