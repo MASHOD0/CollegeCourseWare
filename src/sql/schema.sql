@@ -33,7 +33,9 @@ CREATE TABLE "classes" (
   "course_id" int,
   "link" varchar,
   "day" varchar(10),
-  "time" time
+  "time" time,
+  "class_id" SERIAL PRIMARY KEY,
+  "teacher_id" integer
 );
 
 CREATE TABLE "grades" (
@@ -44,28 +46,36 @@ CREATE TABLE "grades" (
   "CIE_2" int,
   "CIE_3" int,
   "AAT" int,
-  "SEE" int
+  "SEE" int,
+  "section_id" int
 );
 
 CREATE TABLE "Attendance" (
   "student_id" int,
   "course_id" int,
   "missed" int,
-  "total" int
+  "total" int,
+  "section_id" int
 );
 
 ALTER TABLE "classes" ADD FOREIGN KEY ("section_id") REFERENCES "sections" ("section_id");
 
 ALTER TABLE "classes" ADD FOREIGN KEY ("course_id") REFERENCES "courses" ("course_id");
 
+ALTER TABLE "classes" ADD FOREIGN KEY ("teacher_id") REFERENCES "teachers" ("teacher_id");
+
 ALTER TABLE "grades" ADD FOREIGN KEY ("student_id") REFERENCES "student" ("student_id");
 
 ALTER TABLE "grades" ADD FOREIGN KEY ("course_id") REFERENCES "courses" ("course_id");
+
+ALTER TABLE "grades" ADD FOREIGN KEY ("section_id") REFERENCES "sections" ("section_id");
 
 ALTER TABLE "Attendance" ADD FOREIGN KEY ("student_id") REFERENCES "student" ("student_id");
 
 ALTER TABLE "Attendance" ADD FOREIGN KEY ("course_id") REFERENCES "courses" ("course_id");
 
+ALTER TABLE "Attendance" ADD FOREIGN KEY ("section_id") REFERENCES "sections" ("section_id");
+
 ALTER TABLE "student" ADD FOREIGN KEY ("section_id") REFERENCES "sections" ("section_id");
 
---ALTER TABLE "teachers" ADD FOREIGN KEY ("department") REFERENCES "courses" ("department");
+ALTER TABLE "teachers" ADD FOREIGN KEY ("department") REFERENCES "courses" ("department");
