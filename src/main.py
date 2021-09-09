@@ -141,7 +141,17 @@ def student():
         #print(day)
         classes = db.fetch(conn, q.get_classes.format(session['username'], day))
         grades = db.fetch(conn, q.get_grades.format(session['username']))
-        return render_template('student.html', classes=classes, class_len= len(classes), grades = grades, grade_len = len(grades))
+        attendance_list = db.fetch(conn, q.get_attendance.format(session['username']))
+        attendance_percent = []
+        for i in range( len(attendance_list)):
+            if attendance_list[i][1] == None:
+                percent = 1
+            else:
+                percent = ((attendance_list[i][2] - attendance_list[i][1]) / attendance_list[i][2])
+            attendance_percent.append(percent * 100)
+
+
+        return render_template('student.html', classes=classes, class_len= len(classes), grades = grades, grade_len = len(grades), list = attendance_list, percent = attendance_percent, list_len = len(attendance_list))
     else:
         return redirect('/studentlogin')
 
