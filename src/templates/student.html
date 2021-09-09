@@ -8,10 +8,13 @@
 {% endblock %}
 {% block content %}
   <h1>Classes</h1>
+  <style>
+    tr:hover {background-color: white;}
+  </style>
 
   <table name = "Classes" style = "border:1px solid black; width: 50%" center = "True">
   <tr>
-    <th 
+    <th> 
       Sr.No
     </th>
     <th>
@@ -103,6 +106,45 @@
     </tr>
     {% endfor %}
     </table>
+    <table style = "border:1px solid black; width: 50%" center = "True">
+    <tr>
+      <th> 
+        Sr.No
+      </th>
+      <th>
+        Course Code
+      </th>
+      <th>
+        Classes Missed
+      </th>
+      <th>
+        Total Classes
+      </th>
+      <th>
+        Attendance Percentage
+      </th>
+    </tr>
+    {% for i in range(list_len) %}
+    <tr>
+      <td>
+        {{ i+1 }}
+      </td>
+      <td>
+       {{ list[i][0] }}
+      </td>
+      <td>
+        {{ list[i][1] }}
+      </td>
+      <td>
+        {{ list[i][2] }}
+      </td>
+      <td>
+        {{ percent[i] }}
+      </td>
+    </tr>
+    {% endfor %}
+    </table>
+  
   <br>
   <br>
   <br>
