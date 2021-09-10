@@ -1,4 +1,4 @@
-# FirstYearProject: College CourseWare
+# College CourseWare
 College courseware is a web application which helps streamline and modernise the
 way classes are conducted in this pandemic , we have four core modules\
 ![Modules](https://user-images.githubusercontent.com/63853764/132734688-7bace56e-da94-4d59-acad-ca237f6bd0a4.png)
