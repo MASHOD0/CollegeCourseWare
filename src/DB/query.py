@@ -44,7 +44,7 @@ get_classes = """
 
 #7
 get_teacher_cls = """
-                SELECT sections.sections, courses.course_code, link, "time"
+                SELECT sections.section, courses.course_code, link, "time"
                 FROM classes
                 INNER JOIN courses ON classes.course_id = courses.course_id
 				INNER JOIN teachers ON classes.teacher_id = teachers.teacher_id 
@@ -101,11 +101,11 @@ add_student_to_grades = """INSERT INTO grades(student_id, course_id, semester, s
 add_courses = """INSERT INTO courses(course_id, department, course_code) VALUES (DEFAULT, '{}', '{}');"""
 
 #17
-add_sections = """INSERT INTO sections(section_id, semester, sections) VALUES (DEFAULT, {}, '{}');"""
+add_sections = """INSERT INTO sections(section_id, semester, section) VALUES (DEFAULT, {}, '{}');"""
 
 #18
 get_sections = """
-                SELECT section_id, sections
+                SELECT section_id, section
                 FROM sections
                 """
 
@@ -119,7 +119,7 @@ get_section = """SELECT student_id FROM student WHERE section_id = {};"""
 add_student_to_attendance = """INSERT INTO "Attendance"(student_id, course_id, section_id) VALUES ({}, {}, {});""" 
 
 #22
-get_section_from_grades ="""SELECT DISTINCT grades.section_id, grades.course_id, courses.course_code, sections.sections 
+get_section_from_grades ="""SELECT DISTINCT grades.section_id, grades.course_id, courses.course_code, sections.section
                             FROM grades
                             INNER JOIN courses ON grades.course_id = courses.course_id
                             INNER JOIN sections on grades.section_id = sections.section_id;
@@ -129,7 +129,7 @@ get_section_from_grades ="""SELECT DISTINCT grades.section_id, grades.course_id,
 get_section_usn = """SELECT student_id, "USN" FROM student WHERE section_id = {};"""
 
 #24
-get_section_from_attendance = """SELECT DISTINCT "Attendance".section_id, "Attendance".course_id,courses.course_code , sections.sections 
+get_section_from_attendance = """SELECT DISTINCT "Attendance".section_id, "Attendance".course_id,courses.course_code , sections.section 
                             FROM "Attendance"
                             INNER JOIN courses ON "Attendance".course_id = courses.course_id
                             INNER JOIN sections on "Attendance".section_id = sections.section_id;
