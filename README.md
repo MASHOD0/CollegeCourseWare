@@ -74,5 +74,5 @@ This will start running your application on [localhost:5000](http://localhost:50
 
 
 # Developer
--[Mashhood Alam](https://github.com/MASHOD0)
+- [Mashhood Alam](https://github.com/MASHOD0)
 
