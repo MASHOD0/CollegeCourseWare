@@ -1,4 +1,4 @@
-# FirstYearProject: College CourseWare
+# College CourseWare
 College courseware is a web application which helps streamline and modernise the
 way classes are conducted in this pandemic , we have four core modules\
 ![Modules](https://user-images.githubusercontent.com/63853764/132734688-7bace56e-da94-4d59-acad-ca237f6bd0a4.png)
@@ -50,9 +50,10 @@ insights from this in their newsletter\
 On the student end students can view their grades.
 
 # Installation Guide 
-## step 0: Clone This repository
+## step 0: Getting the Repository
+Clone [this](https://github.com/MASHOD0/FirstYearProject/) Repository on your system.
 ## Step 1: Postrges
-Install postgres from [here](https://www.postgresql.org/download/)
+Install postgres from [here](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 ## Step 2: Create A database
 Create a database with the name `fyp-ver1` with this [schema](src/sql/schema.sql) \
 Note: if you create a database with another name, change the name of the database [here](src/DB/db.py)\
@@ -70,4 +71,8 @@ pip3 install -r src/requirements.txt
 for mac and linux
 ## Step 4: Run the `main.py` file to start the application 
 This will start running your application on [localhost:5000](http://localhost:5000/)
+
+
+# Developer
+- [Mashhood Alam](https://github.com/MASHOD0)
 
