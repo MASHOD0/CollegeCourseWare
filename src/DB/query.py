@@ -2,7 +2,7 @@
 get_section_id = """
                 SELECT section_id
                 FROM sections
-                WHERE sections = '{}';
+                WHERE section = '{}';
                 """
 
 #2-- gets password from student
