@@ -1,13 +1,14 @@
 from psycopg2 import connect
+from credentials import DATABASE, USER, PASSWORD, HOST, PORT
 
 def fypDB_Connect():
     try:
         conn = connect(
-            database="fyp-ver1", 
-            user = "postgres", 
-            password = "postgres", 
-            host = "127.0.0.1", 
-            port = "5432"
+            database= DATABASE, 
+            user = USER, 
+            password = PASSWORD, 
+            host = HOST, 
+            port = PORT
         )
         print("Opened database successfully")
         return conn     
